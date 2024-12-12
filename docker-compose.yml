@@ -1,0 +1,205 @@
+version: '3.8'
+
+services:
+
+#------------------------ Frontend -------------------------#
+
+  react:
+    build: frontend
+    image: react-image
+    container_name: react-container
+    ports:
+      - "5173:5173"
+    volumes:
+      - react-volume:/home/frontend/src
+      - ./frontend/package.json:/home/frontend/package.json
+      - ./frontend/vite.config.js:/home/frontend/vite.config.js
+    command: bash -c "npm run dev -- --host 0.0.0.0 --port 5173"
+    restart: always
+    networks:
+      - mynetworks
+    env_file:
+      - .env
+
+#-------------------------Backend---------------------------#
+
+  nginx:
+    image: osarsar42/waf-modsecurity-owasp
+    container_name: nginx-container
+    ports:
+      - "443:443"
+      - "80:80"
+    depends_on:
+      - registration
+      - react
+    restart: always
+    networks:
+      - mynetworks
+    volumes:
+      - nginx-logs:/var/log/nginx
+      - ./backend/nginx/config/default.conf:/etc/nginx/conf.d/default.conf
+    command: nginx -g 'daemon off;'
+    env_file:
+      - .env
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"  # Map Redis port to the host
+    restart: always
+    networks:
+      - mynetworks
+    env_file:
+      - .env  
+
+  registration:
+    build: backend/dg_registration
+    image: dg_registration-image
+    container_name: dg_registration-container
+    tty: true  # Added for debugging
+    ports:
+      - "8000:8000"
+    volumes:
+      - dg_registration-volume:/home/env/backend
+      - ./backend/dg_registration/ssl:/home/env/backend/ssl
+    command: bash -c "python3 manage.py makemigrations && python3 manage.py migrate && daphne -e ssl:8000:privateKey=ssl/key.pem:certKey=ssl/cert.pem backend.asgi:application"
+    restart: always
+    networks:
+      - mynetworks
+    env_file:
+      - .env
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.9
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+    networks:
+      - mynetworks
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.17.9
+    container_name: logstash
+    volumes:
+      - ./logstash/pipeline:/usr/share/logstash/pipeline
+      - nginx-logs:/var/log/nginx
+    ports:
+      - "5000:5000"
+    depends_on:
+      - elasticsearch
+    networks:
+      - mynetworks
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.17.9
+    container_name: kibana
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+    networks:
+      - mynetworks
+      
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./Graf_Pro/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+  
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      - prometheus
+
+
+
+#------------------------ Database -------------------------#
+
+  pg_registration:
+    build: database
+    image: pg_registration-image
+    container_name: pg_registration-container
+    ports:
+      - "5432:5432"
+    restart: always
+    volumes:
+      - ./database/volume:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: Registration_db
+      POSTGRES_USER: osarsarr
+      POSTGRES_PASSWORD: osarsarr
+    networks:
+      - mynetworks
+    env_file:
+      - .env
+
+
+#------------------------- volumes -------------------------#
+
+
+
+volumes:
+  dg_registration-volume:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PWD}/backend/dg_registration/dg_volume
+      o: bind
+
+  react-volume:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PWD}/frontend/frontend
+      o: bind
+      
+  nginx-volumes:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PWD}/backend/nginx/config
+      o: bind
+
+  esdata:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PWD}/logs
+      o: bind
+      
+  nginx-logs:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PWD}/backend/nginx/logs
+      o: bind
+
+  grafana_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PWD}/Graf_Pro/grafana
+      o: bind
+
+
+networks:
+  mynetworks:
+    driver: bridge

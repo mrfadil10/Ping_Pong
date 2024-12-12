@@ -1,0 +1,84 @@
+.friends{
+    background-color: #DDD6E7;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 60px;
+    box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.3);
+}
+
+.friends .users{
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+    position: relative;
+    left: 40px;
+    /* font-size: 16px; */
+    filter: drop-shadow(0 8px 16px rgba(102, 102, 102, 0.5));
+}
+.friends .users h1{
+    font-size: 16px;
+}
+
+
+.friends .users .image{
+    border-radius: 50px;
+    border: 2px solid black;
+    background-color: white;
+}
+
+.friends .users .fname{
+    color: black;
+    position: relative;
+    right: 20px;
+}
+
+.friends .option{
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    font-size: 10px;
+    position: relative;
+    right: 30px;
+}
+
+.friends .option h1{
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 7px 15px 7px 15px;
+    border-radius: 8px;
+    box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.3);
+    font-size: 12px;
+}
+
+.friends .option h1:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+.friends .users .on{
+    font-size: 20px;
+    display: flex;
+    position: relative;
+}
+.friends .users .on div{
+    position: relative;
+    top: 40px;
+    right: 10px;
+}
+
+.friends .users .online{
+    background-color: #00FF47;
+    width: 8px;
+    height: 8px;
+    border-radius: 100px;
+    border: 1px solid black;
+}
+
+.friends .users .offline{
+    background-color: #FF1F00;
+    width: 8px;
+    height: 8px;
+    border-radius: 100px;
+    border: 1px solid black;
+}

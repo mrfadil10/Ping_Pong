@@ -1,0 +1,29 @@
+/* MainPage.css */
+.main-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #000;
+    color: #fff;
+}
+
+.options {
+    margin-top: 20px;
+}
+
+.option {
+    display: block;
+    padding: 10px 20px;
+    margin: 10px;
+    color: #fff;
+    background-color: #bc79dc;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.option:hover {
+    background-color: #a05dbb;
+}

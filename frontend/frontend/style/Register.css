@@ -1,0 +1,127 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+.blockr_all{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.blockr_all .block{
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 50px;
+    width: 400px;
+    padding: 40px;
+    border-radius: 10px;
+    border: 2px solid #ffffffd1;
+    box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.3);
+}
+
+.blockr_all .block .container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 60px;
+    width: 100%;
+}
+
+.blockr_all .block .container .high{
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    width: 60%;
+}
+
+.blockr_all .block .container .high input{
+    height: 40px;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.3);
+    padding-left: 10px;
+}
+
+.blockr_all .block .container .high input::placeholder{
+    position: relative;
+    left: 10px;
+}
+
+.blockr_all .block .container .high .forgot{
+    display: flex;
+    justify-content: flex-end;
+    font-size: 13px;
+}
+
+.blockr_all .block .container .high .forgot a{
+    text-decoration: none;
+    color:#560187
+}
+
+.blockr_all .block .container .high .pair{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.blockr_all .block .error-message{
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.blockr_all .block .success-message {
+    color: green;
+    margin-top: 10px;
+}
+
+.blockr_all .block .input-error{
+    border: 2px solid red;
+}
+
+
+.blockr_all .block .container .low{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 15px;
+}
+
+.blockr_all .block .container .low .register{
+    background-color: rgb(0, 0, 0);
+    color: #ffffff;
+    font-size: 20px;
+    padding-left: 79px;
+    padding-right: 79px;
+    height: 40px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.3);
+}
+
+.blockr_all .block .container .low .register:hover{
+    transform: scale(1.02);
+    transition: transform 0.3s ease;
+}
+
+.blockr_all .block .container .too_low{
+    display: flex;
+    column-gap: 7px;
+    font-size: 13px;
+}
+
+.blockr_all .block .container .too_low h4 button{
+    text-decoration: none;
+    background-color: #ffffff;
+    padding: 0px;
+    color: rgb(16, 0, 61);
+    border: none;
+    cursor: pointer;
+}

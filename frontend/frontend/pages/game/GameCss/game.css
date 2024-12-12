@@ -1,0 +1,370 @@
+body {
+	margin : 0;
+	background-color: #f4f4f4;
+}
+
+.app {
+	position: relative;
+	display: flex;
+	margin : 0;
+	padding: 0;
+	font-family: Arial, sans-serif;
+	background-image: url('/src/assets/background.png');
+	width: calc(100vw - 277px);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	box-sizing: border-box;
+	height: 100vh;
+	min-height: 500px;
+}
+
+.sidebar {
+	display: flex;
+	flex-direction: column;
+	width: 200px;
+	background-color: #fff;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.logoContainer {
+	display: flex;
+	justify-content: center;
+}
+
+.sidebar .logo {
+	text-align: center;
+	width: 120px;
+	height: 120px;
+}
+
+.sidebar nav ul {
+	list-style: none;
+	padding: 0;
+}
+
+.sidebar nav ul li {
+	padding: 15px 20px;
+	cursor: pointer;
+}
+/* add it */
+
+.sidebar nav ul li .text{
+	text-decoration: none;
+	color: #000;
+	    font-weight: bold;
+}
+
+/* add it */
+
+.sidebar nav ul li.active {
+	background-color: #eff0f7;
+	border-left: 4px solid #000;
+	color: #000;
+	font-weight: bold;
+	box-shadow: inset 0px 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar nav ul li:hover {
+	background-color: #eff0f7;
+}
+
+.sidebar .logout {
+	padding: 20px;
+	display: flex;
+	text-align: center;
+	bottom: 0px;
+}
+
+.sidebar .logout button {
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+}
+
+.game {
+	flex: 1;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 20px;
+}
+
+.mode-select button {
+	margin: 0 10px 20px;
+	padding: 10px 20px;
+	cursor: pointer;
+	border: #fff;
+	box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.color-select button {
+	margin: 0 20px;
+	padding: 2px 1px 1px 1px;
+	cursor: pointer;
+	border: #fff;
+}
+
+.round-select button {
+	margin: 0 10px;
+	padding: 5px 10px;
+	cursor: pointer;
+	font-family: 'Kameron', serif;
+	border: #fff;
+	box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.horizontal {
+	display: flex;
+	align-items: center;
+}
+
+.mode-select button.active,
+.round-select button.active {
+	background-color: #000000;
+	color: #fff;
+	transition: 0.5s;
+}
+
+.color-select button.active {
+	background-color: #c8b3e5;
+	border: #fff;
+	transition: 0.4s;
+}
+
+.match{
+	border-radius: 10px;
+	font-family: 'Kameron', serif;
+	font-size: 18px;
+	font-weight: 700;
+}
+
+.color-table {
+	border-radius: 10px;
+	font-family: 'Kameron', serif;
+	font-size: 18px;
+	font-weight: 700;
+	margin: 7px 70px -70px;
+	text-shadow: 2px 2px 2px rgba(114, 114, 114, 0.5);
+}
+
+.rounds{
+	border-radius: 10px;
+	font-family: 'Kameron', serif;
+	font-size: 18px;
+	font-weight: bolder;
+	margin: 10px 0;
+}
+
+.start-game {
+	background-color: #000;
+	color: #fff;
+	border-radius: 10px;
+	font-family: 'Kameron', serif;
+	font-size: 18px;
+	font-weight: 700;
+	padding: 2px 55px;
+	margin: 50px 0px 0px 0px;
+	transition: all 0.5s;
+	box-shadow: 1px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.start-game span {
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+	transition: 0.5s;
+  }
+
+  .start-game span:after {
+	content: '';
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	right: -15px;
+	width: 20px;
+	height: 50px;
+	background-image: url('src/assets/add_tour.svg');
+	background-size: contain;
+	background-repeat: no-repeat;
+	transition: 0.5s;
+}
+
+.start-game:hover span {
+	padding-right: 25px;
+}
+
+.start-game:hover span:after {
+	opacity: 1;
+	right: 0;
+}
+
+.tournament button {
+	cursor: pointer;
+	gap: 5px;
+	background-color: #2e2e2e;
+	box-shadow: 1px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.profile {
+	font-family: 'Kameron', serif;
+	font-weight: bold;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 20px;
+	border: #fff;
+	background: none;
+}
+
+.separator {
+	min-width: 250px;
+	display: flex;
+}
+
+.container {
+	display: flex;
+	justify-content: space-between;
+	max-width: 1200px;
+	margin: auto;
+}
+
+.mini-background {
+	background: white;
+	padding: 50px 100px;
+	border-radius: 15px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 35px;
+  }
+
+  .navbar {
+	display: flex;
+	flex: 1 1 0%;
+	flex-direction: column;
+	justify-content: space-between;
+  }
+
+  .log-out {
+	align-self: end;
+  }
+
+
+  .toggle-button, .close-button {
+	background-color: #3490dc;
+	color: white;
+	font-weight: bold;
+	padding: 0.5rem 1rem;
+	border: none;
+	border-radius: 0.25rem;
+	cursor: pointer;
+	transition: background-color 0.3s ease-in-out;
+  }
+  .toggle-button:hover, .close-button:hover {
+	background-color: #2779bd;
+  }
+  .close-button {
+	background-color: #e3342f;
+  }
+  .close-button:hover {
+	background-color: #cc1f1a;
+  }
+  .game .overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.1s ease-in-out, visibility 0.1s ease-in-out;
+  }
+  .game .overlay .visible {
+	opacity: 1;
+	visibility: visible;
+  }
+  .popup {
+	background-color: white;
+	padding: 1.5rem;
+	border-radius: 0.5rem;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	max-width: 28rem;
+	width: 100%;
+	margin: 1rem;
+	transform: scale(0.95);
+	opacity: 0;
+	transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  }
+
+  .popup.visible {
+	transform: scale(1);
+	opacity: 1;
+  }
+  .popup h2 {
+	font-size: 1.25rem;
+	font-weight: bold;
+	margin-bottom: 1rem;
+  }
+  .popup p {
+	margin-bottom: 1rem;
+  }
+
+
+  @media (min-width: 1441px) {
+    .mini-background {
+      transform: scale(1.3);
+    }
+    .sidebar {
+      width: 300px;
+    }
+  }
+
+  @media (min-width: 1201px) and (max-width: 1440px) {
+    .mini-background {
+      transform: scale(1);
+    }
+    .sidebar {
+      width: 280px;
+    }
+    .mode-select {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* flex-direction: column; */
+    }
+  }
+
+  @media (min-width: 1025px) and (max-width: 1200px) {
+    .mini-background {
+      transform: scale(0.9);
+    }
+    .sidebar {
+      width: 260px;
+    }
+  }
+
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .mini-background {
+      transform: scale(0.8);
+    }
+    .sidebar {
+      width: 240px;
+    }
+  }
+
+  @media (min-width: 577px) and (max-width: 768px) {
+    .mini-background {
+      transform: scale(0.7);
+    }
+    .sidebar {
+      width: 220px;
+    }
+  }

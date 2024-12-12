@@ -1,0 +1,220 @@
+*{
+    font-family: 'Kameron';
+    src: url('fonts/Kameron.woff2') format('woff2'),
+         url('fonts/Kameron.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.home_all{
+    margin: 20px;
+}
+
+.home_all .top{
+    padding-right: 100px;
+    padding-left: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.home_all .top .sign{
+    display: flex;
+    column-gap: 50px;
+}
+
+.home_all .top .sign button{
+    text-decoration: none;
+    border: 1px solid black;
+    color: white;
+    background-color: black;
+    border-radius: 25px;
+    padding: 10px;
+    padding-left: 50px;
+    padding-right: 50px;
+    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+    font-size: 25px;
+}
+
+.home_all .top .sign button:hover{
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+    cursor: pointer;
+}
+
+.home_all .body{
+    display: flex;
+    justify-content: space-around;
+    height: 70vh;
+    align-items: center;
+}
+
+.home_all .body .welcome{
+    display: flex;
+    flex-direction: column;
+    row-gap: 100px;
+    align-items: center;
+}
+
+.home_all .body .welcome .text{
+    font-size: 80px;
+    row-gap: 200px;
+    position: relative;
+    left: 70px;
+}
+
+.home_all .body .welcome .text div{
+    font-size: 70%;
+    position: relative;
+    left: 10px;
+    top: 10px
+}
+
+.home_all .body .welcome button{
+    background-color: rgb(0, 0, 0);
+    border-radius: 55px;
+    padding: 15px;
+    padding-left: 50px;
+    padding-right: 50px;
+    font-size: 55px;
+    color: white;
+    text-decoration: none;
+    border: 1px solid black;
+    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+}
+
+.home_all .body .welcome button:hover{
+    cursor: pointer;
+    color:rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+}
+
+.home_all .top img{
+    width: 170px;
+    height: 170px;
+}
+
+.home_all .top img:hover{
+    cursor: pointer;
+}
+
+
+.home_all .body img{
+    width: 800px;
+    height: 800px;
+}
+
+.home_all .body .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+@media ((min-width: 1300px) and (max-width: 2000px)) {
+    .home_all .body img{
+        width: 600px;
+        height: 600px;
+    }
+    .home_all .body .welcome .text{
+        font-size: 40px;
+    }
+    .home_all .body .welcome button{
+        font-size: 40px;
+    }
+}
+
+@media ((min-width: 850px) and (max-width: 1300px)) {
+    .home_all .body img{
+        width: 400px;
+        height: 400px;
+    }
+    .home_all .body .welcome .text{
+        font-size: 30px;
+    }
+    .home_all .body .welcome button{
+        font-size: 30px;
+    }
+}
+
+@media ((min-width: 650px) and (max-width: 850px)) {
+    .home_all .body img{
+        width: 300px;
+        height: 300px;
+    }
+    .home_all .body .welcome .text{
+        font-size: 20px;
+    }
+    .home_all .body .welcome button{
+        font-size: 10px;
+    }
+    .home_all .body .welcome{
+        row-gap: 50px;
+    }
+    .home_all .top img{
+        width: 100px;
+        height: 100px;
+        position: relative;
+        right: 70px;
+    }
+    .home_all .top .sign button{
+        font-size: 10px;
+    }
+    .home_all .top .sign{
+        column-gap: 10px;
+    }
+   
+}
+
+@media (max-width: 650px) {
+    .home_all .body img{
+        width: 200px;
+        height: 200px;
+    }
+    .home_all .body .welcome .text{
+        font-size: 10px;
+        position: absolute;
+        top: 220px;
+    }
+    .home_all .body .welcome button{
+        font-size: 10px;
+        padding: 10px;
+        padding-left: 30px;
+        padding-right: 30px;
+        position: relative;
+        left: 30px;
+        top: 50px;
+    }
+    .home_all .body .welcome{
+        row-gap: 40px;
+    }
+    .home_all .top img{
+        width: 50px;
+        height: 50px;
+    }
+    .home_all .top .sign button{
+        text-decoration: none;
+        border: 1px solid black;
+        color: white;
+        background-color: black;
+        border-radius: 25px;
+        padding: 7px;
+        padding-left: 20px;
+        padding-right: 20px;
+        font-size: 7px;
+        position: relative;
+        left: 80px;
+    }
+    .home_all .top .sign{
+        column-gap: 10px;
+    }
+    .home_all .top img{
+        position: relative;
+        right: 70px;
+    }
+}

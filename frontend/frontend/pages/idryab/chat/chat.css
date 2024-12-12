@@ -1,0 +1,12 @@
+.chat-card{
+    margin: 0;
+    padding: 0;
+    width: calc(100vw - 277px);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: hidden;
+    background-image: url('../../../assets/homeback.jpg');
+}
+

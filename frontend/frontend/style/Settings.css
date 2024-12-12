@@ -1,0 +1,170 @@
+.settings_all{
+    width: calc(100vw - 277px);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background-image: url('../assets/homeback.jpg');
+}
+
+.settings_all .scontent{
+    width: 1062px;
+    height: 623px;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 15px;
+    box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.3);
+}
+
+.settings_all .scontent .title{
+    filter: drop-shadow(0 8px 16px rgba(102, 102, 102, 0.5));
+    font-size: 25px;
+    border-bottom: 2px solid black;
+    position: relative;
+    top: 50px;
+}
+
+.settings_all .scontent .line2, .line3{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    column-gap: 132px;
+}
+
+.settings_all .scontent .line1{
+    position: relative;
+    top: 50px;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+}
+
+.settings_all .scontent .line1 .images{
+    width: 111px;
+    height: 105px;
+    border-radius: 200px;
+    background-color: white;
+    border: 3px solid black;
+    box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.3);
+}
+
+
+.settings_all .scontent .line2{
+    position: relative;
+    top: 10px;
+}
+
+.settings_all .scontent .line3{
+    position: relative;
+    bottom: 50px;
+}
+.settings_all .scontent .line3 .policy{
+    position: relative;
+    top: 30px;
+    left: 50px;
+    font-size: 15px;
+    color: black;
+    filter: drop-shadow(0 8px 16px rgba(102, 102, 102, 0.5));
+}
+
+.settings_all .scontent .line3 .policy:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+.settings_all .scontent .line3 .fa{
+    position: relative;
+    left: 200px;
+    top: 30px;
+    font-size: 18px;
+}
+
+
+.settings_all .scontent .line3 .fa .checkbox-input {
+    transform: scale(1.5);
+    margin-right: 10px;
+    position: relative;
+    /* bottom: 5px; */
+}
+.settings_all .scontent .line1 div, .line2 div, .line3 div{
+    display: flex;
+    flex-direction: column;
+}
+
+.settings_all .scontent .line1 div h1, .line2 div h1, .line3 div h1{
+    filter: drop-shadow(0 8px 16px rgba(102, 102, 102, 0.5));
+    position: relative;
+    bottom: 5px;
+    font-size: 15px;
+}
+
+.settings_all .scontent .line1 .contents{
+    position: relative;
+    top: 25px;
+    left: 30px;
+}
+
+
+.settings_all .scontent .line1 .input, .line2 .input, .line3 .input{
+    background-color: #EFF0F7;
+    width: 323px;
+    height: 50px;
+    border-radius: 5px;
+    border: none;
+    padding-left: 20px;
+    box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.3);
+    font-size: 20px;
+}
+
+.settings_all .scontent .line1 .input::placeholder, .line2 .input::placeholder, .line3 .input::placeholder{
+    position: relative;
+    font-size: 10px;
+    bottom: 2px;
+}
+
+.settings_all .scontent .last{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.settings_all .scontent .last .save{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    bottom: 70px;
+}
+
+.settings_all .scontent .last .save button{
+    padding: 10px 82px 10px 82px;
+    font-size: 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.3);
+
+}
+
+
+.settings_all .scontent .last .save .line {
+    border-bottom: 2px solid black;
+    width: 200px;
+    position: relative;
+    bottom: 10px;
+}
+
+.settings_all .scontent .last button:hover{
+    cursor: pointer;
+    transform: scale(1.01);
+    transition: transform 0.3s ease;
+}

@@ -1,0 +1,107 @@
+.user_all .profil{
+    background-color: #F4F5FA;
+    width: 800px;
+    height: 150px;
+    display: flex;
+    padding: 40px;
+    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+}
+
+
+.user_all .profil .block_img{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user_all .profil .block_img .image{
+    width: 250px;
+    height: 250px;
+    border-radius: 200px;
+    border: 3px solid black;
+    background-color: white;
+    transform: translateY(-60%);
+    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+}
+
+.user_all .profil .block_img .on{
+    position: relative;
+    bottom: 135px;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.user_all .profil .block_user{
+    position: relative;
+    left: 30px;
+    width: 100%;
+}
+
+.user_all .profil .block_user .username{
+    transform: translateY(-170%);
+    font-size: 60px;
+    font-weight: bold;
+}
+
+.user_all .profil .block_user .level{
+    font-size: 40px;
+    font-weight: bold;
+    position: relative;
+    bottom: 60px;
+    left: 20px;
+}
+
+.user_all .profil .block_user .percent{
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: 40px;
+    border-radius: 30px;
+    box-shadow: inset 0 7px 6px rgba(0, 0, 0, 0.2);
+    position: relative;
+    bottom: 50px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.user_all .profil .block_user .add{
+    position: relative;
+    bottom: 60px;
+    left: 380px;
+    padding: 5px 30px 5px 30px;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+    background-color: #DDD6E7;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.user_all .profil .block_user .add:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+
+
+.user_all .profil .block_img .on .online{
+    background-color: #00FF47;
+    width: 10px;
+    height: 10px;
+    border-radius: 100px;
+    border: 2px solid black;
+}
+.user_all .profil .block_img .on .offline{
+    background-color: #FF1F00;
+    width: 10px;
+    height: 10px;
+    border-radius: 100px;
+    border: 2px solid black;
+}

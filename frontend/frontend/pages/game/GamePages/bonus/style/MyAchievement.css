@@ -1,0 +1,40 @@
+.Myachievement{
+    background-color: #F4F5FA;
+    width: 400px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.Myachievement .title{
+    font-size: 24px;
+    font-weight: bold;
+    filter: drop-shadow(0 8px 16px rgba(102, 102, 102, 0.5));
+}
+
+.Myachievement .tropher img{
+    border-bottom: 2px solid black;
+    padding: 20px 20px 20px 20px
+}
+
+.Myachievement .tropher::-webkit-scrollbar {
+    width: 8px;
+}
+
+.Myachievement .tropher{
+    filter: drop-shadow(0 8px 16px rgba(163, 163, 163, 0.5));
+    width: 95%;
+    display: flex;
+    justify-content: space-evenly;
+    position: relative;
+    top: 0px;
+    flex-wrap: wrap;
+    overflow-x: auto;
+    height: 150px;
+    scrollbar-width: thin; 
+    scrollbar-color: #000000 #F4F5FA;
+}

@@ -1,0 +1,32 @@
+.header-card {
+  display: flex;
+  padding: 20px;
+  width: 100%;
+  position: relative;
+  left: 30px;
+}
+
+
+.header-card .profile-picture {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid black;
+  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+
+}
+
+.header-card .header-info {
+  display: flex;
+  justify-content:center;
+  flex: 1;
+}
+
+.header-card .header-name {
+  margin: 0;
+  font-size: 35px;
+  color: #333;
+  position: relative;
+  right: 80px;
+  top: 10px;
+}

@@ -1,0 +1,92 @@
+.dash_all{
+    width: calc(100vw - 277px);
+    height: 100vh;
+    background-image: url('../assets/homeback.jpg');
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+}
+
+.dash_all .dright {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 30px;
+}
+
+.dash_all .dright .ProgressChart {
+    width:  650px;
+}
+
+.dash_all .dright .ach_full
+{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    column-gap: 20px;
+    position: relative;
+}
+
+.dash_all .dright .ach_full .nb_all
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;   
+}
+
+
+.dash_all .wl {
+    display: flex;
+    width: 590px;
+    justify-content: space-between;
+    position: relative;
+    bottom: 20px;
+}
+
+.dash_all .nbra {
+    background-color: #F4F5FA;
+    width: 230px;
+    height: 100px;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.3);
+}
+
+.dash_all .nbra_total {
+    background-color: #F4F5FA;
+    width: 590px;
+    height: 125px;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.3);
+}
+
+.dash_all .nbr {
+    font-size: 20px;
+    filter: drop-shadow(0 8px 16px rgba(102, 102, 102, 0.5));
+    color: #360A71;
+}
+.dash_all .nbra .dtitle{
+    filter: drop-shadow(0 8px 16px rgba(102, 102, 102, 0.5));
+    font-size: 15px;
+}
+
+
+.dash_all .dleft {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 30px;
+    position: relative;
+}

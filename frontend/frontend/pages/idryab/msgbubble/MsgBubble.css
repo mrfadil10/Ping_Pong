@@ -1,0 +1,41 @@
+.msg-bubble{
+    margin-bottom: 10px;
+    display: flex;
+    width: 100%;
+}
+.msg-bubble img{
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 200rem;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.29);
+    
+}
+
+.msg-body{
+    display: flex;
+    align-items: center;
+    max-width: 50%;
+    background-color: #e6e6e6;
+    padding: 10px 15px;
+    border-radius: 10px 10px 10px 0px;
+    color: #000;
+    font-size: 16px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    flex-wrap: wrap;
+}
+
+.msg-body p{
+    width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    font-size: 15px;
+}
+
+.senderIcon{
+    display: flex;
+    margin: 0px 5px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50px;
+    align-items: end;
+}

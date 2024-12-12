@@ -1,0 +1,156 @@
+.home_all{
+    background-image: url('../assets/homeback.jpg');
+    width: 100vw;
+    height: 100vh;
+}
+
+.home_all .nav{
+    height: 15vh;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    z-index: 1000;
+}
+
+.home_all .nav img{
+    filter: drop-shadow(0 8px 16px rgba(102, 102, 102, 0.5));
+    position: relative;
+    left: 2%;
+}
+
+.home_all .nav .sign{
+    display: flex;
+    width: 40%;
+    justify-content: center;
+    align-items: center;
+    column-gap: 5%;
+}
+
+.home_all .nav .sign button{
+    background-color: rgb(0, 0, 0);
+    color: white;
+    padding: 15px 70px 15px 70px;
+    border-radius: 60px;
+    border: none;
+    box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.3);
+    font-size: 20px;
+    border: 2px solid black;
+}
+
+.home_all .nav .sign button:hover{
+    cursor: pointer;
+    background-color: white;
+    border: 2px solid black;
+    color: black;
+}
+
+.home_all .font_all{
+    height: 85vh;
+}
+.home_all .font{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    position: relative;
+}
+
+.home_all .font .right {
+    display: flex;
+    column-gap: 1%;
+}
+.home_all .font .right img:hover {
+    transform: scale(1.02);
+    transition: transform 0.3s ease;
+}
+
+.home_all .font .right .home1{
+    width: 300px;
+    height: 500px;
+    position: relative;
+    top: 70px;
+    filter: drop-shadow(0 8px 16px rgba(102, 102, 102, 0.5));
+    border-radius: 10px;
+    border: 5px solid black;
+    box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.3);
+}
+.home_all .font .right .home3{
+    width: 300px;
+    height: 500px;
+    position: relative;
+    filter: drop-shadow(0 8px 16px rgba(102, 102, 102, 0.5));
+    border-radius: 10px;
+    border: 5px solid black;
+    box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.3);
+
+
+}
+
+.home_all .font .left{
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 5%;
+    text-shadow: 0px 0px 20px rgba(70, 70, 70, 0.4);
+}
+
+.home_all .font .left .title{
+    font-size: 50px;
+    position: relative;
+}
+
+.home_all .font .left .title .gamess{
+    position: relative;
+    bottom: 20px;
+}
+
+.home_all .font .left .text{
+    font-size: 15rpx;
+    position: relative;
+    left: 10px;
+}
+
+.home_all .font .left .button{
+    height: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.home_all .font .left button{
+    background-color: rgb(0, 0, 0);
+    color: white;
+    padding: 15px 60px 15px 60px;
+    border-radius: 40px;
+    border: none;
+    box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.3);
+    font-size: 20px;
+    border: 2px solid black;
+    display: flex;
+    align-items: center;
+}
+
+.home_all .font .left button:hover{
+    cursor: pointer;
+    background-color: white;
+    border: 2px solid black;
+    color: black;
+}
+
+.home_all .animation .overlays {
+    position: fixed; /* Utiliser fixed pour couvrir tout l'écran */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fond noir avec transparence */
+    display: flex; /* Centrer le contenu */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Assurez-vous qu'il soit au-dessus des autres éléments */
+}
+
+.home_all .animation .overlays .modal-content {
+    padding: 20px;
+    border-radius: 8px; /* Coins arrondis pour le modal */
+}
+  

@@ -1,0 +1,65 @@
+
+	.win_extra{
+		background-color: rgb(112, 16, 176);
+		border-radius: 1.5rem;
+		box-shadow: 0 5px 10px rgb(0, 0, 0);
+		transform: scale(0.95);
+	}
+
+	.win-screen {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #392569;
+	border-radius: 60% 3%;
+	box-shadow: 0px 0px 10px 5px rgba(138, 98, 183, 0.475);
+	padding: 30px 250px;
+	}
+
+	.win-screen__container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	}
+
+	.win-screen__circle {
+	position: relative;
+	width: 200px;
+	height: 300px;
+	}
+
+	.win-screen__image {
+		content: "";
+		position:relative;
+		top: -100px;
+		left: -15px;
+		border-radius: 50%;
+		background-color: #604688;
+		width: 200px;
+		height: 200px;
+	}
+
+	.win-screen__text {
+	font-family: 'Kameron', serif;
+	margin-top: 0px;
+	margin-bottom: 100px;
+	margin-left: -10px;
+	font-size: 65px;
+	font-weight: bold;
+	color: rgba(34, 255, 0, 0.6);
+	text-shadow: 0px 5px 15px rgb(28, 179, 28);
+	animation: blinking 0.5s infinite;
+	}
+
+	.win-screen_name {
+	color: rgb(206, 184, 250);
+	font-family: 'Kameron', serif;
+	margin-top: -100px;
+	margin-left: 35px;
+	}
+
+	@keyframes blinking {
+		0% { opacity: 1; }
+		50% { opacity: 0; }
+		100% { opacity: 1; }
+	}

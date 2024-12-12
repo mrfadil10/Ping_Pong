@@ -1,0 +1,77 @@
+.policy_all{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: calc(100vw - 277px);
+    background-image: url('../assets/profilback1.jpg');
+}
+
+.policy_all .text{
+    box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.3);
+    background-color:white;
+    width: 1062px;
+    height: 623px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    font-size: 15px;
+    row-gap: 70px;
+    overflow-y: auto;
+    position: relative;
+    scrollbar-width: thin; 
+    scrollbar-color: #000000 #ffffff;
+}
+
+.policy_all .text .pcontents{
+    filter: drop-shadow(0 8px 16px rgba(102, 102, 102, 0.5));
+    position: relative;
+    top: 100px;
+    left: 100px;
+    width: calc(100% - 100px);
+    padding-bottom: 50px;
+}
+
+.policy_all .text .title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    filter: drop-shadow(0 8px 16px rgba(102, 102, 102, 0.5));
+    position: relative;
+    top: 100px;
+}
+.policy_all .text .title h1{
+    border-bottom: 2px solid black;
+}
+
+.policy_all .text .title img{
+    position: relative;
+    left: 120px;   
+}
+
+.policy_all .text .link{
+    padding: 20px 0px 0px 20px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+.policy_all .text .link .subtitle{
+    border: none;
+    font-size: 17px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.policy_all .text .link .subtitle:hover{
+    color: blueviolet;
+}
+
+.policy_all .text .link .subtitle a:hover{
+    color: blueviolet;
+}
+
+.policy_all .text .link .subtitle a{
+    text-decoration: none;
+    color: black;
+}
+

@@ -1,0 +1,61 @@
+.userprofil_full {
+    background-image: url('../assets/homeback.jpg');
+    width: calc(100vw - 277px);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: aqua;
+}
+
+.userprofil_full .AS{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-evenly;
+    row-gap: 10px;
+}
+
+.userprofil_full .first{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+}
+
+.userprofil_full .first .user{
+    position: relative;
+    top: 50px;
+}
+
+.userprofil_full .histo_all{
+    display: flex;
+    flex-direction: column;
+    row-gap: 6px;
+    overflow-y: auto;
+    height: 215px;
+    scrollbar-width: thin; 
+    scrollbar-color: #000000 #F4F5FA;
+}
+.userprofil_full .histo_down{
+    width: 1100px;
+}
+
+.userprofil_full .histo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.userprofil_full .title{
+    border-bottom: 1px solid black;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    width: 208px;
+    filter: drop-shadow(0 8px 16px rgba(102, 102, 102, 0.5));
+    position: relative;
+    bottom: 20px;
+}

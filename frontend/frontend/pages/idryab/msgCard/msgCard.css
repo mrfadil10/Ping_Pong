@@ -1,0 +1,51 @@
+.user-card {
+  background-color: #F6F6F6;
+  display: flex;
+  padding: 10px 20px 10px 20px;
+  width: 270px;
+  height: 59px;
+  border-radius: 10px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.29);
+}
+
+.user-card .user-info{
+  color: black;
+}
+
+.user-card:hover{
+  background-color: #D8CFE3;
+  cursor: pointer;
+}
+
+.user-card .ppc img{
+  width: 43px;
+  height: 43px;
+  border: 2px solid black;
+  border-radius: 200rem;
+  background-color: white;
+  box-shadow: 0 3px 5px 
+  rgba(0, 0, 0, 0.29);
+  position: relative;
+  top: 7px;
+}
+.user-card .user-name{
+  font-size: 15px;
+}
+
+.user-card .status-indicator{
+  position: relative;
+  bottom: 13px;
+  left: 35px;
+  border-radius: 50%;
+  width: 8px;
+  height: 8px;
+  border: 2px solid #000000;
+}
+
+.user-card .online {
+  background-color: #00FF47;
+}
+
+.user-card .offline {
+  background-color: #ff0000;
+}

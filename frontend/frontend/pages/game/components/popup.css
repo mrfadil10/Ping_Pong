@@ -1,0 +1,148 @@
+.modal-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 1000;
+	font-family: 'Kameron', serif;
+  }
+
+  .friends-list-popup {
+	background-color: #e9e6e6f2;
+	padding: 1.5rem;
+	border-radius: 1rem;
+	max-width: 28rem;
+	width: 100%;
+	margin: 0 1rem;
+  }
+
+  .search-container {
+	position: relative;
+	margin-bottom: 1rem;
+  }
+
+  .search-input {
+	font-family: 'Kameron', serif;
+	width: fit-content;
+	padding: 0.5rem 17rem 0.5rem 1rem;
+	border-radius: 99px;
+	border: 1px solid #d1d5db;
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
+  }
+
+  .search-icon {
+	position: absolute;
+	right: 0.75rem;
+	top: 50%;
+	transform: translateY(-50%);
+	color: #9ca3af;
+  }
+
+  .clear-search-button {
+	position: absolute;
+	right: 2.5rem;
+	top: 50%;
+	transform: translateY(-50%);
+	color: #9ca3af;
+	background: none;
+	border: none;
+	cursor: pointer;
+  }
+
+  .friends-title {
+
+	font-family: 'Kameron', serif;
+	font-size: 2.25rem;
+	font-weight: bold;
+	margin-bottom: 1rem;
+	padding-bottom: 0.5rem;
+	border-bottom: 1px solid #626467;
+  }
+
+  .friends-list {
+	max-height: 15rem;
+	overflow-y: auto;
+	margin-bottom: 1rem;
+  }
+
+  .friend-item, .search-result-item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background-color: #f2f2f2f2;
+	padding: 0.5rem;
+	border-radius: 0.5rem;
+	margin: 0.5rem 0.5rem;
+	box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.3);
+  }
+
+  .friend-info {
+	display: flex;
+	align-items: center;
+  }
+
+  .friend-avatar {
+	width: 2.5rem;
+	height: 2.5rem;
+	background-image: url('/src/assets/profile_icon.svg');
+	background-size: contain;
+	border-radius: 999px;
+	margin-right: 0.75rem;
+  }
+
+  .friend-avatar.small {
+	width: 2rem;
+	height: 2rem;
+	margin-right: 0.5rem;
+  }
+
+  .friend-status {
+	font-family: 'Kameron', serif;
+	padding: 0.25rem 1rem;
+	border-radius: 9999px;
+	background-color: white;
+	color: #4b5563;
+	border: 1px solid #d1d5db;
+  }
+  .friend-status:hover{
+	cursor: pointer;
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+  }
+
+  .friend-status.sending {
+	background-color: #e5e7eb;
+	border: none;
+  }
+
+  .search-results {
+	background-color: #e5e7eb;
+	border-radius: 0.5rem;
+	padding: 0.5rem;
+	max-height: 10rem;
+	overflow-y: auto;
+  }
+
+  .button-container {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 1rem;
+  }
+
+  .action-button {
+	border-radius: 10px;
+	font-family: 'Kameron', serif;
+	font-weight: 700;
+	font-size: medium;
+	padding: 0.5rem 1.5rem;
+	border-radius: 999px;
+	background-color: black;
+	color: white;
+	border: none;
+	cursor: pointer;
+  }

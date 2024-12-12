@@ -1,0 +1,242 @@
+/* Start The Game : */
+.winlose{
+  /* background-color: aqua; */
+  /* background-color: #00000048; */
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pong-game-container {
+	background-image: url('/src/assets/background.png');
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-size: cover;
+}
+
+.game-container {
+  display: grid;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 800px;
+  padding: 20px;
+  background-color: #7c75a5;
+  border-radius: 10px;
+  /* border: 5px inset #6363e6; */
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.9);
+}
+
+.users-info {
+  background-color: #360065;
+  border-radius: 10px;
+  border: 3px inset #9881e4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 99.3%;
+  margin-bottom: -240px;
+}
+
+#pong {
+  border: 8px inset #9881e4;
+  border-radius: 15px;
+  width: 100%;
+  height: 500px;
+  box-sizing: border-box;
+}
+
+#vs {
+  filter: brightness(0) invert(1);
+  width: 70px;
+  margin: 3px 20px;
+}
+
+.user-info {
+  display: flex;
+  height: 10px;
+  align-items: center;
+  color: #f1deff;
+}
+
+.user-avatar {
+  position: relative;
+  top: -20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 0px;
+  background-color: rgb(103, 41, 183);
+  box-shadow: 1px 6px 5px rgba(27, 23, 38, 0.8);
+  border: 3px inset #aa90ff;
+  scale: 0.9;
+}
+
+.user-name {
+  font-size: 23px;
+  font-weight: bold;
+  margin-bottom: 0px;
+}
+.user-info {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.user-score {
+  font-weight: bold;
+  font-size: 20px;
+  margin-left: 50%;
+}
+.user-details{
+  margin-right: 15px;
+  margin-left: 15px;
+  
+}
+/* Waiting CSS */
+.waiting-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(135deg, #360A71 0%, #16213e 100%);
+  color: #fff;
+}
+
+.waiting-text {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin: 2rem 0;
+  min-width: 400px;
+  text-align: center;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255,255,255,0.5);
+}
+
+.textWaiting {
+  font-size: 1.2rem;
+  color: #8eb1fd;
+  animation: pulse 2s infinite;
+}
+
+.ping-pong-animation {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  margin-bottom: 2rem;
+}
+
+.paddleleft {
+  position: absolute;
+  width: 10px;
+  height: 60px;
+  background: #fff;
+  border-radius: 4px;
+  left: 0;
+  animation: paddleMoveL 4s infinite;
+}
+
+.paddleright {
+  animation: paddleMoveR 4s infinite;
+  right: 0;
+  /* opacity: 0.3; */
+  height: 60px;
+  position: absolute;
+  width: 10px;
+  height: 60px;
+  background: #fff;
+  border-radius: 4px;
+}
+
+.ball {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: #fff;
+  border-radius: 50%;
+  left: 20px;
+  top: 50%;
+  animation: ballMove 4s infinite;
+  box-shadow: 0 0 10px rgba(255,255,255,0.8);
+}
+
+@keyframes paddleMoveL {
+  0%, 100% { transform: translateY(100px); }
+  50% { transform: translateY(0); }
+}
+
+@keyframes paddleMoveR {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(100px); }
+}
+
+@keyframes ballMove {
+  0% {
+      left: 20px;
+      transform: scale(1);
+  }
+  45% {
+      left: 270px;
+      transform: scale(0.8);
+  }
+  50% {
+      left: 270px;
+      transform: scale(1.2);
+  }
+  95% {
+      left: 20px;
+      transform: scale(0.8);
+  }
+  100% {
+      left: 20px;
+      transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* End of Game : */
+
+
+.tround_all{
+  background-image: url('/src/assets/background.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.tround{
+	width: 50%;
+	height: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #F4F5FA;
+	padding: 50px 0;
+	border-radius: 20px;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+	flex-direction: column;
+	gap: 40px;
+	animation: fadeIn 1.5s ease-in-out;
+	position: absolute;
+	top: 10px;
+  }
+  
+  @keyframes fadeIn {
+	0% { opacity: 0; }
+	100% { opacity: 1; }
+  }

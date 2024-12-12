@@ -1,0 +1,67 @@
+.other-ranks{
+    background-color: #1c2864;   
+    box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.3);
+    width: 1019px;
+    height: 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* margin-bottom: 7px; */
+}
+
+.other-ranks .image{
+    width: 28px;
+    height: 28px;
+    border-radius: 200px;
+    border: 2px solid black;
+    background-color: white;
+}
+
+.other-ranks .right{
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    position: relative;
+    left: 25px;
+}
+
+.other-ranks .right div{
+    filter: drop-shadow(0 8px 16px rgba(102, 102, 102, 0.5));
+}
+
+.other-ranks .right .username{
+    font-weight: bold;
+    font-size: 18px;
+    color: black;
+}
+
+.other-ranks .score{
+    display: flex;
+    position: relative;
+    right: 50px;
+    column-gap: 15px;
+    
+}
+
+.other-ranks .score div{
+    display: flex;
+    font-weight: bold;
+    font-size: 18px;
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.5));
+}
+
+.other-ranks .rank{
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.5));
+    position: absolute;
+    left: 48%;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.even-rank {
+    background-color: #F4F5FA;
+}
+
+.odd-rank {
+    background-color: #F4F5FA;
+}

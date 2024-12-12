@@ -1,0 +1,63 @@
+.lose_extra{
+	background-color: rgb(112, 16, 176);
+	border-radius: 1.5rem;
+	box-shadow: 0 5px 10px rgb(0, 0, 0);
+	transform: scale(0.95);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.lose-screen {
+display: flex;
+justify-content: center;
+align-items: center;
+background-color: #392569;
+border-radius: 60% 3%;
+box-shadow: 0px 0px 10px 5px rgba(138, 98, 183, 0.475);
+padding: 30px 250px;
+}
+
+	.lose-screen__circle {
+	position: relative;
+	width: 200px;
+	height: 300px;
+	}
+
+	.lose-screen__image {
+		content: "";
+		position:relative;
+		top: -100px;
+		left: 50px;
+		border-radius: 50%;
+		background-color: #604688;
+		width: 200px;
+		height: 200px;
+	}
+
+	.lose-screen__text {
+	font-family: 'Kameron', serif;
+	margin-top: 0px;
+	margin-bottom: 100px;
+	margin-left: -10px;
+	font-size: 65px;
+	font-weight: bold;
+	color: rgba(255, 0, 0, 0.6);
+	text-shadow: 0px 5px 15px rgb(179, 28, 28);
+	animation: blinking 0.5s infinite;
+	}
+
+	.lose-screen_name {
+	color: rgb(206, 184, 250);
+	font-family: 'Kameron', serif;
+	margin-top: -100px;
+	margin-left: 35px;
+	position: relative;
+	left: 60px;
+	}
+
+	@keyframes blinking {
+		0% { opacity: 1; }
+		50% { opacity: 0; }
+		100% { opacity: 1; }
+	}

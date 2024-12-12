@@ -1,0 +1,50 @@
+.user-cards {
+  background-color: #DDD6E7;
+  display: flex;
+  padding-left: 15px;
+  width: 280px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.29);
+}
+
+.user-cards .user-info{
+  color: black;
+  font-size: 5px;
+}
+.user-cards .user-info .user-name{
+  font-size: 17px;
+}
+
+.user-cards:hover{
+  background-color: #D8CFE3;
+  cursor: pointer;
+}
+
+.user-cards .ppc img{
+  width: 30px;
+  height: 30px;
+  border: 2px solid black;
+  border-radius: 200rem;
+  background-color: white;
+  box-shadow: 0 3px 5px 
+  rgba(0, 0, 0, 0.29);
+  position: relative;
+  top: 7px;
+}
+
+.user-cards .status-indicator{
+  position: relative;
+  bottom: 10px;
+  left: 28px;
+  border-radius: 50%;
+  width: 5px;
+  height: 5px;
+  border: 2px solid #000000;
+}
+
+.user-cards .online {
+  background-color: #00FF47;
+}
+
+.user-cards .offline {
+  background-color: #ff0000;
+}

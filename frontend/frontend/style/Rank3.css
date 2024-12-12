@@ -1,0 +1,55 @@
+.third-rank{
+    background-color: #F4F5FA;
+    box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    height: 70px;
+    width: 377px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+.third-rank .image{
+    height: 82px;
+    width: 82px;
+    background-color: white;
+    border-radius: 200px;
+    border: 2px solid black;
+    transform: translate(-70%, -30%);
+    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+}
+
+.third-rank .middle{
+    display: flex;
+}
+
+.third-rank .middle .username{
+    position: relative;
+    top: 15px;
+    right: 45px;
+    font-size: 15px;
+    width: 100%;
+    height: 100%;
+    font-weight: bold;
+    color: black;
+}
+
+.third-rank .tropher{
+    height: 60px;
+    width: 55px;
+    position: relative;
+    right: 15px;
+    top: 5px;
+    filter: drop-shadow(0 8px 16px rgba(102, 102, 102, 0.5));
+}
+
+.third-rank .rank{
+    font-size: 50px;
+    font-weight: normal;
+    font-family: 'Katibeh', cursive;
+    filter: drop-shadow(0 8px 16px rgba(102, 102, 102, 0.5));
+    position: relative;
+    right: 15px;
+    top: 10px;
+}

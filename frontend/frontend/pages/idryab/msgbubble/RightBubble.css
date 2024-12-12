@@ -1,0 +1,36 @@
+.right-bubble{
+    margin-bottom: 10px;
+    display: flex;
+    width: 100%;
+    justify-content: right;
+}
+
+.right-bubble img{
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 200rem;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.29);
+
+}
+.right-body{
+    display: flex;
+    align-items: center;
+    max-width: 50%;
+    background-color: #dacbf3;
+    padding: 10px 15px;
+    border-radius: 10px 0px 10px 10px;
+    color: #000;
+    font-size: 16px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    /* font-family: 'Roboto', sans-serif; */
+
+    flex-wrap: wrap;
+}
+
+.right-body p{
+    width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    font-size: 15px;
+
+}

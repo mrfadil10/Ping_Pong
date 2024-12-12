@@ -1,0 +1,64 @@
+.profil_extra{
+    background-image: url('../assets/homeback.jpg');
+    width: calc(100vw - 277px);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.profil_extra .profil_full {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    position: relative;
+    top: 10%;
+}
+
+.profil_extra .profil_full .AS{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-evenly;
+    position: relative;
+}
+.profil_extra .profil_full .first{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+}
+
+.profil_extra .profil_full .histo_all{
+    display: flex;
+    flex-direction: column;
+    row-gap: 6px;
+    overflow-y: auto;
+    height: 215px;
+    scrollbar-width: thin; 
+    scrollbar-color: #000000 #F4F5FA;
+}
+.profil_extra .profil_full .histo_down{
+    width: 1100px;
+}
+
+.profil_extra .profil_full .histo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profil_extra .profil_full .title{
+    border-bottom: 1px solid black;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    width: 208px;
+    filter: drop-shadow(0 8px 16px rgba(102, 102, 102, 0.5));
+    position: relative;
+    bottom: 20px;
+}

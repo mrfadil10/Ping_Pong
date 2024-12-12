@@ -1,0 +1,35 @@
+.search-card {
+  /* width: 100%;
+  display: flex; */
+  /* justify-content: center; */
+}
+
+
+.search-card .search-picture-container{
+  position: relative;
+  left: 50px;
+  display: flex;
+  align-items: center;
+}
+.search-card .search-picture-container .search-picture{
+  width: 20px;
+  height: 20px;
+  position: relative;
+  top: 40px;
+  right: 20px;
+}
+
+.search-card .search-info input{
+  height: 60px;
+  width: 300px;
+  border-radius: 15px;
+  border: none;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.29);
+  background-color: #F6F6F6;
+  padding-left: 60px;
+}
+.search-card .search-info input::placeholder{
+  font-size: 20px;
+  position: relative;
+  top: 2px;
+}

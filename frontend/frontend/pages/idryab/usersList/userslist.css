@@ -1,0 +1,234 @@
+.chat-section{
+    height: 725px;
+    width: 1204px;
+    display: flex;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.29);
+    color: #000;
+    border-radius: 20px;
+    overflow-y: hidden;
+    padding-left: 40px;
+}
+
+.left-section{
+    display: flex;
+    flex-direction: column;
+    width: 380px;
+    align-items: center;
+    position: relative;
+    top: 40px;
+}
+
+.top-left-section
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.top-left-section .friends-section{
+    display: flex;
+    justify-content: center;
+}
+
+.chat-section .left-section .users-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 360px;
+    overflow-y:auto;
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+    top: 100px;
+    scrollbar-width: thin; 
+    scrollbar-color: #000000 #F4F5FA;
+}
+
+.left-section li{
+    margin: 10px 5px  5px 5px;
+    list-style-type: none;
+}
+.left-section span {
+    color: #474221;
+    margin-left: 5px;
+}
+
+.left-section span:hover{
+    color: #000000;
+}
+
+.left-section::-webkit-scrollbar {
+    width: 8px;
+}
+
+.left-section::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px #e3e3e3; 
+    /* background: #e3e3e3; */
+    border-radius: 20px;
+}
+
+.left-section::-webkit-scrollbar-thumb {
+    background: rgb(152, 129, 129);
+    border-radius: 10px;
+    /* width: 18px; */
+}
+
+.left-section::-webkit-scrollbar-thumb:hover {
+    background: #4c4b4b;
+}
+
+.right-sec{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.right-sec .chat-area{
+    background-color: white;
+    height: 900px;
+    border-radius: 10px;
+    width: 85%;
+    padding: 40px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 15px 10px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    height: 900px;
+    overflow-y: auto;
+    scrollbar-width: thin; 
+    scrollbar-color: #000000 #F4F5FA;
+
+}
+
+.send-area
+{
+    margin-top: 20px;
+    width: 80%;
+    height: 55px;
+    position: relative;
+    bottom: 25px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    background-color: #F6F6F6;
+}
+
+.send-area input
+{
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    width: 80%;
+    padding: 5px 10px;
+    color: black;
+    background-color: #ffffff00;
+}
+.file-icon{
+    width: 20px;
+    height: 20px;
+    color: #000;
+    cursor: pointer;
+}
+.send-icon{
+    width: 20px;
+    height: 20px;
+    color: #000;
+    cursor: pointer;
+}
+
+.no-conv{
+    width: inherit;
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+}
+.no-conv img{
+    width: 200px;
+    height: 200px;
+}
+
+.chat-section .left-section .top-left-section .allfriends-btn{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.chat-section .left-section .top-left-section .allfriends-btn button{
+    margin-top: 10px;
+    padding: 10px 30px;
+    font-size: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(0, 0, 0);
+    color: #f6f6f6;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.29);
+    cursor: pointer;
+    transition: padding 0.4s;
+    transition-timing-function: ease;
+    /* transition-delay: 0.1s; */
+}
+
+.chat-section .left-section .top-left-section .allfriends-btn button:hover{
+    padding: 10px 40px;
+    background-color: rgb(58, 56, 56);
+}
+
+
+.convo-header {
+    display: flex;
+    width: 90%;
+    position: relative;
+    top: 10px;
+
+}
+
+.convo-header .first-empty{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 30px;
+    padding-right: 50px;
+}
+
+.convo-header .first-empty .convo-menu{
+    width: 50px;
+    height: 50px;
+}
+
+.convo-header .first-empty .convo-menu:hover{
+    cursor: pointer;
+}
+
+.convo-header .dropdown{
+    background-color: #F1F1F1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 60px;
+    border: none;
+    border-radius: 10px;
+    row-gap: 20px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.29);
+    position: absolute;
+    top: 90px;
+    right: 50px;
+}
+.convo-header .dropdown button{
+    border: none;
+    font-size: 20px;
+}
+.convo-header .dropdown button:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
