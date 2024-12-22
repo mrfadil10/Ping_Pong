@@ -61,5 +61,5 @@ Ensure you have the following installed:
 
 ### Clone the Repository
 ```bash
-git clone https://github.com/yourusername/ft_transcendence.git
+git clone https://github.com/mrfadil10/ft_transcendence.git
 cd ft_transcendence
