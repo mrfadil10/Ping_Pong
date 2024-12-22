@@ -22,7 +22,7 @@ const FriendsList = ({ isOpen, onClose }) => {
                 setFriends(res.data);
             })
             .catch((err) => {
-                console.error(err);
+                // console.error(err);
                 toast.error("Error fetching friends list");
             });
     }, []);

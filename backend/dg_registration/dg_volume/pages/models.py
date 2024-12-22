@@ -88,7 +88,7 @@ def check_unique_email(sender, instance, **kwargs):
         raise ValidationError("Email already exists.")
 
 
-
+#-----------------------------idryab---------------------------------------------
 class FriendRequestModel(models.Model):
     requester = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='sent_request')
     accepter = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='received_request', null=True, blank=True)
@@ -97,8 +97,6 @@ class FriendRequestModel(models.Model):
 
     def __str__(self):
         return self.requester.username
-
-#-----------------------------idryab---------------------------------------------
 
 class ChatMessage(models.Model):
     sender = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='sent_messages')
@@ -158,5 +156,16 @@ class Notifications(models.Model):
     def __str__(self):
         # return "Conversation between"
         return f"Notification between {self.user1.user.username} and {self.user2.user.username}"
-        
+
+class BlockedList(models.Model):
+    blocker = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name="user1_block")
+    blocked = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name="user2_block")
+    blocked_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('blocker', 'blocked')  # Ensure that each pair is unique
+
+
+    def __str__(self):
+        return f"{self.blocker.user.username} blocked {self.blocked.user.username}"
 #-----------------------------End of idryab---------------------------------------------

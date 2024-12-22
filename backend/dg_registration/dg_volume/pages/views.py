@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from rest_framework import generics
 from .serializers import UserSerializer, UserProfileSerializer
-from rest_framework.permissions import AllowAny, AllowAny
-from .models import UserProfile, PrivateMessageModel, Conversation, Notifications, VerificationCode,GameResult
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from .models import UserProfile, PrivateMessageModel, Conversation, Notifications, VerificationCode, GameResult, BlockedList
 from .serializers import UserProfileSerializer, GameResultSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -71,7 +71,16 @@ class LoadMessagesView(APIView):
         ).order_by('-timestamp')
 
         paginator = self.pagination_class()
-        paginated_messages = paginator.paginate_queryset(messages, request)
+        # paginated_messages = paginator.paginate_queryset(messages, request)
+
+        try:
+            paginated_messages = paginator.paginate_queryset(messages, request)
+        except Exception:
+            # Handle out-of-bounds page request
+            return Response({'messages': []}, status=status.HTTP_200_OK)
+
+        if not paginated_messages:  # Check if there are no messages
+            return Response({'messages': []}, status=status.HTTP_200_OK)
 
         serializer = MessageSerializer(paginated_messages, many=True)
         return paginator.get_paginated_response(serializer.data)
@@ -146,6 +155,15 @@ class Notificationzzzz(generics.ListAPIView):
             friends.append(friend)
         return list(dict.fromkeys(friends))
 
+def check_blockedList(blocker, blocked_user):
+    blockedlist = BlockedList.objects.filter((Q(user1=blocker) & Q(user2=blocked_user))).first()
+    beingblockedlist = BlockedList.objects.filter((Q(user1=blocked_user) & Q(user2=blocker))).first()
+    if blockedlist:
+        return blockedlist
+    if beingblockedlist:
+        return beingblockedlist
+    return None
+
 class BlockFriend(APIView):
     permission_classes = [AllowAny]
 
@@ -159,13 +177,15 @@ class BlockFriend(APIView):
         if request.user == friend:
             return Response({"error": "You cannot block yourself mf."}, status=status.HTTP_400_BAD_REQUEST)
 
-        user_profile = UserProfile.objects.get(user=request.user)
-        friend_profile = UserProfile.objects.get(user=friend)
-
-        user_profile.blocked_friends.add(friend)
-        friend_profile.blocked_friends.add(request.user)
-
-        return Response({"success": "Friend blocked."}, status=status.HTTP_200_OK)
+        try:
+            blocker = UserProfile.objects.get(user=request.user)
+            blocked_user = UserProfile.objects.get(user=friend)
+            # if check_blockedList(blocker, blocked_user):
+            #     return Response({'error': 'You have already blocked this user'}, status=400)
+            BlockedList.objects.create(blocker=blocker, blocked=blocked_user)
+            return Response({'success': f'{blocked_user.user.username} has been blocked.'}, status=status.HTTP_200_OK)
+        except User.DoesNotExist:
+            return Response({'error': 'User not found'}, status=404)
 
 class UnBlockFriend(APIView):
     permission_classes = [AllowAny]
@@ -177,18 +197,55 @@ class UnBlockFriend(APIView):
         except User.DoesNotExist:
             return Response({"error": "User does not exist."}, status=status.HTTP_404_NOT_FOUND)
 
-        user_profile = UserProfile.objects.get(user=request.user)
-        friend_profile = UserProfile.objects.get(user=friend)
+        try:
+            blocker = UserProfile.objects.get(user=request.user)
+            blocked_user = UserProfile.objects.get(user=friend)
+            BlockedList.objects.get(blocker=blocker, blocked=blocked_user).delete()
+            return Response({'success': f'{blocked_user.user.username} has been Unblocked.'}, status=status.HTTP_200_OK)
+        except User.DoesNotExist:
+            return Response({'error': 'You have not blocked this user'}, status=404)
 
-        user_profile.blocked_friends.remove(friend)
-        friend_profile.blocked_friends.remove(request.user)
 
-        return Response({"success": "Friend Unblocked."}, status=status.HTTP_200_OK)
+class CheckBlockedList(APIView):
+    permission_classes = [AllowAny]
 
+    def get(self, request, *args, **kwargs):
+        blocker_username = kwargs.get('blocker_username')
+        blocked_username = kwargs.get('blocked_username')
+        try:
+            blocker = User.objects.get(username=blocker_username)
+            blocked_user = User.objects.get(username=blocked_username)
+        except User.DoesNotExist:
+            return Response({"error": "One or both users do not exist."}, status=status.HTTP_404_NOT_FOUND)
+
+        # Check blocked list
+        block_status = check_blockedList(blocker, blocked_user)
+        if block_status:
+            return Response({"status": "Blocked", "details": str(block_status)}, status=status.HTTP_200_OK)
+        return Response({"status": "Not Blocked"}, status=status.HTTP_200_OK)
+
+# def GetAllBlockedMembers(blocker):
+#     blockedlist = BlockedList.objects.filter(Q(blocker=blocker) | Q(blocked=blocker))
+#     # blockedlist = BlockedList.objects.filter(Q(user1=blocker) | Q(user2=blocked_user)).first()
+
+class GetBlockList(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request, *args, **kwargs):
+        blocker = UserProfile.objects.get(user=request.user)
+
+        # block_status = GetAllBlockedMembers(blocker)
+        blockedlist = BlockedList.objects.filter(Q(blocker=blocker))
+        blocked_data = []
+        if blockedlist.exists():
+            blocked_data = [blocked.blocked.user.username for blocked in blockedlist]
+            return JsonResponse({"blocked_users": blocked_data})
+        return JsonResponse({"blocked_users": blocked_data}, status=200)
+        # return Response({"status": "Not Blocked"}, status=status.HTTP_200_OK)
 
 def check_friend_req(requester, accepter):
     notification = Notifications.objects.filter(
-        ((Q(user1=requester) & Q(user2=accepter)) or (Q(user1=accepter) & Q(user2=requester)))
+        (Q(user1=requester, user2=accepter) | Q(user1=accepter, user2=requester))
     ).first()
     return notification
 
@@ -202,7 +259,6 @@ class FriendReqState(APIView):
             friend = User.objects.get(username=friend_username)
         except User.DoesNotExist:
             return Response({"error": "User does not exist."}, status=status.HTTP_404_NOT_FOUND)
-
         user_profile = UserProfile.objects.get(user=request.user)
         for friend in user_profile.friends.all():
             if friend.username == friend_username:
@@ -216,7 +272,7 @@ class FriendReqState(APIView):
 class RejectFriend(APIView):
     permission_classes = [AllowAny]
 
-    def get(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         friend_username = kwargs.get('username')
         try:
             friend = User.objects.get(username=friend_username)
@@ -225,11 +281,11 @@ class RejectFriend(APIView):
 
         user_profile = UserProfile.objects.get(user=request.user)
         friend_profile = UserProfile.objects.get(user=friend)
-        notification = check_friend_req(user_profile, friend_profile)
+        notification = check_friend_req(friend_profile, user_profile)
         if notification:
             notification.delete()
-            return Response({"success": "firend removed"}, status=status.HTTP_200_OK)
-        return Response({"error": "error removing friend"}, status=status.HTTP_200_OK)
+            return Response({"success": "success"}, status=status.HTTP_200_OK)
+        return Response({"error": "fail"}, status=status.HTTP_200_OK)
 #------------------------ End of idryab--------------------------------------------------------------------
 
 class UserProfileView(APIView):
@@ -336,9 +392,9 @@ class FriendProfileView(generics.RetrieveAPIView):
             user = User.objects.get(username=username)
             profile = UserProfile.objects.get(user=user)
         except User.DoesNotExist:
-            raise NotFound("User does not exist.")
+            return Response({"success": {}}, status=status.HTTP_200_OK)
         except UserProfile.DoesNotExist:
-            raise NotFound("User profile not found.")
+            return Response({"success": {}}, status=status.HTTP_200_OK)
         return profile
 
 #------------------------------------------------------------------------#
@@ -380,8 +436,8 @@ class UserSettingsView(APIView):
         new_password = data.get('new_password')
         profile_image = data.get('profile_image')
 
-        if not user.check_password(password):
-            return Response({"error": "Incorrect current password"}, status=status.HTTP_400_BAD_REQUEST)
+        # if not user.check_password(password):
+        #     return Response({"error": "Incorrect current password"}, status=status.HTTP_400_BAD_REQUEST)
 
         if username:
             user.username = username
@@ -435,14 +491,12 @@ class GameResultView(APIView):
             
             # Check if games exist for the given username
             if not games.exists():
-                return Response({"message": "No games found for this user."}, status=status.HTTP_404_NOT_FOUND)
+                return Response({"message": "No games found for this user."}, status=status.HTTP_200_OK)
 
             serializer = GameResultSerializer(games, many=True)  # Serialize the game results
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception as e:
-            # Log the exception for debugging
-            print(f"Error fetching game results: {e}")
-            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({"success": str(e)}, status=status.HTTP_200_OK)
 
 
 
@@ -500,7 +554,7 @@ class DeleteUserView(APIView):
             user.delete()
             return Response({"message": "User data deleted successfully"}, status=200)
         except Exception as e:
-            return Response({"error": str(e)}, status=500)
+            return Response({"success": str(e)}, status=200)
 
 
 class PermanentDeleteAccountView(APIView):
@@ -538,7 +592,7 @@ class RestoreAccountView(APIView):
 
 
 class UserIsDeletedView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
         user = request.user
@@ -584,11 +638,14 @@ class GoogleLoginView(APIView):
                 'access': str(refresh.access_token),
             })
         except Exception as e:
-            return JsonResponse({'error': str(e)}, status=500)
+            return JsonResponse({'success': str(e)}, status=200)
 
 
-
+from urllib.parse import urlparse
+from django.core.files.base import ContentFile
+from django.conf import settings
 from django.db import IntegrityError
+
 
 class IntraLoginView(APIView):
     permission_classes = [AllowAny]
@@ -634,15 +691,32 @@ class IntraLoginView(APIView):
         user_data = info_response.json()
         email = user_data.get("email")
         login = user_data.get("login")
+        image_large = user_data.get("image", {}).get("versions", {}).get("large")
 
         try:
             # Step 3: Create or Retrieve User
             user, created = User.objects.get_or_create(
                 username=login,
-                defaults={"email": email},
+                email=email,
             )
 
-            # Handle cases where a user exists but with a different email
+            # Step 4: Download and Save the Profile Image
+            if image_large:
+                filename = os.path.basename(urlparse(image_large).path)  # Extract filename
+                response = requests.get(image_large)
+
+                if response.status_code == 200:
+                    media_path = os.path.join(settings.MEDIA_ROOT, filename)
+                    with open(media_path, 'wb') as f:
+                        f.write(response.content)
+
+            # Step 5: Create or Update UserProfile with the downloaded image
+            user_profile, profile_created = UserProfile.objects.get_or_create(user=user)
+            if profile_created or user_profile.profile_image != filename:
+                user_profile.profile_image = filename  # Save filename relative to MEDIA_ROOT
+                user_profile.save()
+
+            # Update email if necessary
             if not created and user.email != email:
                 user.email = email
                 user.save()
@@ -653,10 +727,10 @@ class IntraLoginView(APIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-        # Step 4: Generate Tokens
+        # Step 6: Generate Tokens
         refresh = RefreshToken.for_user(user)
 
-        # Step 5: Return Tokens and User Info
+        # Step 7: Return Tokens and User Info
         return Response(
             {
                 "access": str(refresh.access_token),

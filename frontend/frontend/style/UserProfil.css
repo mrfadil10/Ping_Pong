@@ -6,7 +6,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    background-color: aqua;
 }
 
 .userprofil_full .AS{
@@ -22,6 +21,12 @@
     justify-content: space-evenly;
     align-items: center;
     width: 100%;
+}
+.userprofil_full .first .hereee{
+    display: flex;
+    flex-direction: column;
+    /* column-gap: 500px; */
+    row-gap: 100px;
 }
 
 .userprofil_full .first .user{

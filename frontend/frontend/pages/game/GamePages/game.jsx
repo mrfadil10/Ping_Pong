@@ -92,7 +92,7 @@ function Game() {
 				<button className={color === 'white' ? 'active match' : 'match'} onClick={() => setColor('white')}>
 					<img src="/src/assets/WhiteBoard.svg" alt="icon"/>
 				</button>
-				<button className={color === 'purple' ? 'active match' : 'match'} onClick={() => setColor('purple')}>
+				<button className={color === '#300863' ? 'active match' : 'match'} onClick={() => setColor('#300863')}>
 				<img src="/src/assets/PurpleBoard.svg" alt="icon"/>
 				</button>
 			</div>

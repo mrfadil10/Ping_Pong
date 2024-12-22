@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from pages.views import RejectFriend, FriendReqState, UnBlockFriend, BlockFriend, Notificationzzzz, allFriendzzzz, Friendzzzz, CreateUserView, UserProfileView, AddFriendView, ListFriendsView, RemoveFriendView, FriendProfileView, LogoutView, UserSettingsView, SearchUserView, LeaderboardView, AnonymizeDataView, UserInfoView, DeleteUserView, PermanentDeleteAccountView, PermanentDeleteAccountView, RestoreAccountView, UserIsDeletedView, GoogleLoginView, LoadMessagesView, SearchFriends, SendVerificationCodeView, VerifyCodeView, GameResultView, IntraLoginView
+from pages.views import CheckBlockedList, GetBlockList, RejectFriend, FriendReqState, UnBlockFriend, BlockFriend, Notificationzzzz, allFriendzzzz, Friendzzzz, CreateUserView, UserProfileView, AddFriendView, ListFriendsView, RemoveFriendView, FriendProfileView, LogoutView, UserSettingsView, SearchUserView, LeaderboardView, AnonymizeDataView, UserInfoView, DeleteUserView, PermanentDeleteAccountView, PermanentDeleteAccountView, RestoreAccountView, UserIsDeletedView, GoogleLoginView, LoadMessagesView, SearchFriends, SendVerificationCodeView, VerifyCodeView, GameResultView, IntraLoginView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from django.conf.urls.static import static
 from django.conf import settings
@@ -32,6 +32,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('api/send_code/', SendVerificationCodeView.as_view(), name='send_code'),
     path('api/verify_code/', VerifyCodeView.as_view(), name='verify_code'),
+    path('api/gameresults/', GameResultView.as_view(), name='gameresult-list'),
     # path('users/', WhoTalkedWith.as_view(), name='users'),
     path('api/users/', Friendzzzz.as_view(), name='users'),
     path('api/allfriendz/', allFriendzzzz.as_view(), name='allfrindz'),
@@ -41,7 +42,8 @@ urlpatterns = [
     path('api/unblock_friend/<str:username>/', UnBlockFriend.as_view(), name='blockedfriend'),
     path('api/friendreq_state/<str:username>/', FriendReqState.as_view(), name='friendreqstate'),
     path('api/reject_friend/<str:username>/', RejectFriend.as_view(), name='rejectfriend'),
-    path('api/searchusers/<str:friendUsername>/', SearchFriends.as_view(), name='searchusers'),# New path reject_friend
-    path('api/gameresults/', GameResultView.as_view(), name='gameresult-list'),
+    path('api/check_block/<str:blocker_username>/<str:blocked_username>/', CheckBlockedList.as_view(), name='check_blocked'),
+    path('api/block_list/', GetBlockList.as_view(), name='blocklist'),
+    path('api/searchusers/<str:friendUsername>/', SearchFriends.as_view(), name='searchusers'),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -12,7 +12,7 @@ const WinComp = ({obj, text}) => {
           <div className="win-screen__container">
             <div className="win-screen__circle">
               <img src="/media/profile_images/avatar2_tICSu6O.png" alt="osarsar" className="win-screen__image" />
-              <h1 className="win-screen_name">Player</h1>
+              <h1 className="win-screen_name">Winner</h1>
             </div>
             <h1 className="win-screen__text">{text}</h1>
           </div>

@@ -70,7 +70,7 @@ function Dashboard() {
                     
                         <div className="nbra">
                             <div className="dtitle">Number of achievements</div>
-                            <div className="nbr">{profile.achievements}</div>
+                            <div className="nbr">{profile.achievements + 1}</div>
                         </div>
                     
                     </div>

@@ -10,12 +10,12 @@ export const DatasProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
   const [Notifs, setNotifications] = useState([]);
-  let   [currentRound, setCurrentRound] = useState(0);
-  let   [players, setPlayers] = useState(['','','','','','','','']);
-  let   [winners, setWinners] = useState(['?', '?', '?','?','?','?','?']);
-  let   [next, setNext] = useState(0);
-  let   [color, setColor] = useState("black");
-  let   [round, setRound] = useState(1);
+  const [currentRound, setCurrentRound] = useState(0);
+  const [players, setPlayers] = useState(['','','','','','','','']);
+  const [winners, setWinners] = useState(['?', '?', '?','?','?','?','?']);
+  const [next, setNext] = useState(0);
+  const [color, setColor] = useState("black");
+  const [round, setRound] = useState(5);
   const [i, setI] = useState(0);
 
 
@@ -57,15 +57,20 @@ export const DatasProvider = ({ children }) => {
   const wsUrl = user?.username ? `wss://${window.location.hostname}/api/ws/prvchat/${user?.username}/` : null;
 
   const { sendJsonMessage, getWebSocket } = useWebSocket(wsUrl, {
-    onOpen: () => {console.log("WS Connected!"); },
-    onClose: () => {console.log("WS Disconnected!");},
+    onOpen: () => {
+      // console.log("WS Connected!"); 
+      console.log("");
+    },
+    onClose: () => {
+      // console.log("WS Disconnected!");
+      console.log("");
+    },
     onMessage: (e) => {
       const data = JSON.parse(e.data);
       if(data.typeofmsg === "friend_request")
         setFriendReq(data);
       else if(data.typeofmsg === "invite_to_game")
         {
-          console.log("GameInvite: ", data);
           setInviteGame(data);
         }
       else if(data.typeofmsg === "status_update")

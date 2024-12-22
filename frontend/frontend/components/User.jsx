@@ -20,10 +20,8 @@ function User({ friendprofile }) {
 
     useEffect(() => {
         if (friendprofile.username) {
-            console.log(friendprofile);
             api.get(`https://${window.location.hostname}/api/friendreq_state/${friendprofile?.username}/`)
                 .then((res) => {
-                    console.log("STATE: ", res.data);
                     setFriendReqState(res.data.FriendReqState);
                 })
                 .catch((err) => {
@@ -32,6 +30,11 @@ function User({ friendprofile }) {
         }
     }, [friendprofile]);
 
+    const online_users = JSON.parse(localStorage.getItem("online_users"));
+    online_users?.map((online_user) => {
+        if(friendprofile.username === online_user)
+            friendprofile.is_online = true;
+      });
 
     return (
         <div className="users_all">

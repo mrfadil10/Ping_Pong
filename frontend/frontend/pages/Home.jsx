@@ -53,14 +53,14 @@ function Home() {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
-
+    const [code, setCode] = useState("");
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
-        const code = params.get("code");
+        setCode(params.get("code"));
         if (code) {
           handleIntraOAuthCallback(code);
         }
-      }, []);
+      }, [code]);
       
       const handleIntraOAuthCallback = async (code) => {
         try {
@@ -88,17 +88,24 @@ function Home() {
                 <div className="left">
                     <div>
                         <div className="title">
-                            <div>Welcome to</div>
+                            <div>Welcome To</div>
                             <div className="gamess">PingPong Game</div>
                         </div>
                         <div className="text">
-                            <div>the must-play experience that guarantees hours of fun.</div>
+                            <div>The must-play experience that guarantees hours of fun.</div>
                             <div>Try it, and you'll be hooked!</div>
                         </div>
                     </div>
                     <div className="button">
                         <button onClick={handleSignInClick}>Play now</button>
                     </div>
+                    <div className="waiting-container2">
+                        <div className="ping-pong-animation2">
+                            <div className="paddleleft2"></div>
+                            <div className="ball2"></div>
+                            <div className="paddleright2"></div>
+                        </div>
+                </div>  
                 </div>
                 <div className="right">
                     <img className="home1" src={home3} alt="Profile"></img>

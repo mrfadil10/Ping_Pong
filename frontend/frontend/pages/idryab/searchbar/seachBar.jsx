@@ -16,7 +16,6 @@ const SearchBar = () => {
     api.get(`https://${window.location.hostname}/api/friend_profile/${friendUsername}`)
     .then((res) => {
       setfriendFound(res.data);
-      console.log(res.data);
     })
     .catch((err) => {
       toast.error("No friend with this name");

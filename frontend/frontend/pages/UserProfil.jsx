@@ -10,6 +10,7 @@ import History from "../components/History";
 import Achievement from "../components/Achievement";
 import Search from "../components/Search";
 import Chistory from "../components/Chistory";
+import BarChart from "./game/GamePages/bonus/BarChart";
 
 
 function UserProfil() {
@@ -23,25 +24,25 @@ function UserProfil() {
             .get(`https://${window.location.hostname}/api/friend_profile/${username}/`)
             .then((res) => {
                 setFriendprofile(res.data);
-                fetchGameHistory();
+                if (res.data.profile_image !== null)
+                    fetchGameHistory();
 
             })
             .catch((err) => {
-                console.error(err);
+                // console.error(err);
                 toast.error("Error fetching friend profile");
             });
-
     } ,[username]);
 
     const fetchGameHistory = async () => {
         try {
             const response = await api.get(`https://${window.location.hostname}/api/gameresults/`, {
             params: { username },
-            });
-            setGameHistory(response.data); // Set the game history data
-        } catch (err) {
+        });
+        setGameHistory(response.data); // Set the game history data
+    } catch (err) {
             setError('Error fetching game results');
-            console.error('Error fetching game history:', err);
+            // console.error('Error fetching game history:', err);
         }
         };
 
@@ -53,7 +54,10 @@ function UserProfil() {
     return (
         <div className="userprofil_full">
             <div className="first">
+                <div className="hereee">
                 <div className="user"><User friendprofile={friendprofile} /></div>
+                <div className="BarChart"><BarChart profile={friendprofile}/></div>
+                </div>
                 <div className="AS">
                     <div className="Search"><Search/></div>        
                     <div className="Achievement"><Achievement profile={friendprofile}/></div>
@@ -64,17 +68,16 @@ function UserProfil() {
             <div className="histo">
                 <div className="title">History</div>
             </div>
-                <div className="histo_all">
-            {gameHistory.length > 0 ? (
-                gameHistory.map((game) => (
+            <div className="histo_all">
+                {gameHistory.length > 0 ? (
+                    gameHistory.map((game) => (
                     <div key={game.id}>
-                <div className="History"><Chistory profile={friendprofile} game={game}/></div>
-                </div>
-          ))
-        ) : (
-          <p>No game history found.</p>
-        )}
-                </div>     
+                        <div className="History"><Chistory profile={friendprofile} game={game}/></div>
+                    </div>))
+                ) : (
+                    <p>No game history found.</p>
+                )}
+            </div>     
             </div>
             <ToastContainer />
         </div>    

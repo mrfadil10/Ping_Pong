@@ -7,8 +7,6 @@ import { Navigate, useNavigate } from "react-router-dom"
 import "../style/History.css"
 
 function Chistory({profile, game}) {
-    const [image1, setImage1] = useState("");
-    const [image2, setImage2] = useState("");
 
     let wn_def;
     if (game.winner == profile.username)
@@ -31,7 +29,8 @@ function Chistory({profile, game}) {
                 </div>
                 <div className="score">
                     <h1 className="username">Score</h1>
-                    <h1 className="username">{game.player1_score} : {game.player2_score}</h1>
+                    <h1 className={` ${wn_def === "Victory" ? "victory" : "defeat"}`}>
+                        {game.player1_score} : {game.player2_score}</h1>
                 </div>
                 <div>Date: {game.created_at.slice(0, 10)}</div>
             </div>

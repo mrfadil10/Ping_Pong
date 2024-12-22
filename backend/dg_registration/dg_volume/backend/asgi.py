@@ -1,10 +1,10 @@
 
 import os
 import django
-print("Setting up Django...")
+# print("Setting up Django...")
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
 django.setup() 
-print("Django setup complete.")
+# print("Django setup complete.")
 from channels.routing import ProtocolTypeRouter, URLRouter
 from channels.auth import AuthMiddlewareStack
 from pages.routing import websocket_urlpatterns

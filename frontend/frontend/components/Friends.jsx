@@ -26,7 +26,7 @@ function Friends({friendusername}) {
                 setFriendprofile(res.data);
             })
             .catch((err) => {
-                console.error(err);
+                // console.error(err);
                 toast.error("Error fetching friend profile");
             });
     }, [friendusername]);

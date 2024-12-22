@@ -36,6 +36,10 @@ function Profil() {
         // }, [user]);
 
     const fetchGameHistory = async () => {
+        if (!username) {
+            setError("Username is required to fetch game history.");
+            return;
+          }
         try {
             const response = await api.get(`https://${window.location.hostname}/api/gameresults/`, {
             params: { username },
@@ -43,14 +47,15 @@ function Profil() {
             setGameHistory(response.data); // Set the game history data
         } catch (err) {
             setError('Error fetching game results');
-            console.error('Error fetching game history:', err);
+            // console.error('Error fetching game history:', err);
         }
         };
 
     useEffect(() => {
         setIsAuthenticated(true);
+        // console.log("user ->:", username);
         // if (username)
-        getUserProfile();      
+            getUserProfile();      
     }, [username]);
 
     // if (!username)

@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import UserProfile
+from .models import UserProfile, BlockedList
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -51,9 +51,15 @@ class ConversationSerializer(serializers.ModelSerializer):
 
     # def get_receiverName(self, obj):
     #     return obj.receiver.user.username
+
+class BlockListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BlockedList
+        fields = ['id', 'blocker', 'blocked', 'blocked_at']
 #-----------End of idryab--------------------------------------
 
 
+#-----------Game --------------------------------------
 from .models import GameResult
 
 class GameResultSerializer(serializers.ModelSerializer):

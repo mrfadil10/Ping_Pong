@@ -9,6 +9,11 @@ export default defineConfig({
       key: fs.readFileSync('./ssl/private.key'),
       cert: fs.readFileSync('./ssl/certificate.crt'),
     },
+    hmr: {
+      protocol: 'wss',  // Use secure WebSocket
+      host: '10.13.8.15',
+      port: 5173,
+    },
     port: 5173, // Optional: Specify your desired port
   },
 });

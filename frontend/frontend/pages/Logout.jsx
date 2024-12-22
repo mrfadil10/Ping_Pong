@@ -18,7 +18,7 @@ function Logout() {
                 navigate("/");
             })
             .catch((err) => {
-                console.error(err);
+                // console.error(err);
                 toast.error("Error logging out.");
             });
             localStorage.removeItem("user");

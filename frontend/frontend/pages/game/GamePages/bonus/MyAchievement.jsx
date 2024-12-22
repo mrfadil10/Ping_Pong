@@ -7,14 +7,16 @@ import third from "./../../../../assets/badge3.png"
 import winner from "./../../../../assets/winner.png"
 import gold from "./../../../../assets/gold.png"
 import silver from "./../../../../assets/silver.png"
+import participation from "./../../../../assets/participation.png"
 import bronze from "./../../../../assets/bronze.png"
 import "./style/MyAchievement.css"
 
 
 function Achievement({profile}) {
-    const achievements = profile.achievements;
+    const achievements = profile.achievements + 1;
     
     const achievementImages = [
+        participation,
         win,
         bronze,
         silver,

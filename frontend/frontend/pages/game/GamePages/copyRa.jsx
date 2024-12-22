@@ -71,7 +71,6 @@ const SoloPage = () => {
             wsUrl = username ? `wss://${window.location.hostname}/api/ws/pong/${username}/` : null;
         const { readyState, sendJsonMessage } = useWebSocket(wsUrl, {
         onOpen: () => {
-            console.log('WebSocket connection opened');
                 setReadyToPlay(true);
                 sendJsonMessage( {
                     type: 'score_max',
@@ -79,7 +78,8 @@ const SoloPage = () => {
                 });
             },
             onClose: () => {
-            console.log("WebSocket connection closed!");
+            // console.log("WebSocket connection closed!");
+            console.log("");
         },
         
         onMessage: (e) => {
@@ -114,7 +114,18 @@ const SoloPage = () => {
         ball_color: "#bc79dc",
         ball_shasow_color: "#beaeb1",
     };
-    const drawRoundedRect = (ctx, x, y, width, height, color, radius) => {
+
+    const drawRoundedRect = (ctx, x, y, width, height, color, radius, left_right, shadowColor) => {
+        ctx.save();
+        if (shadowColor) {
+            ctx.shadowColor = shadowColor; // Set shadow color
+            ctx.shadowBlur = 10; // Adjust blur for the shadow
+            if (left_right == "right")
+                ctx.shadowOffsetX = -5; // Horizontal offset of shadow
+            else
+                ctx.shadowOffsetX = 5; // Horizontal offset of shadow
+            ctx.shadowOffsetY = 5; // Vertical offset of shadow
+        }
         ctx.beginPath();
         ctx.moveTo(x + radius, y);
         ctx.arcTo(x + width, y, x + width, y + height, radius);
@@ -124,12 +135,31 @@ const SoloPage = () => {
         ctx.closePath();
         ctx.fillStyle = color;
         ctx.fill();
+        ctx.restore(); // Restore the context to remove shadow for subsequent elements
     };
+
+
     const drawNet = (ctx) => {
-        for (let i = 15; i <= gameState.canvas.height - 15; i += 15) {
-            drawRoundedRect(ctx, gameState.canvas.width / 2, infos.net_y + i, infos.net_width, infos.net_height, infos.net_color, 2.01);
+        if (table_color === 'white') {
+            infos.net_color = 'black';
         }
+        // Draw the net
+        const netX = gameState.canvas.width / 2 - infos.net_width / 2;
+        const netY = 20; 
+        const netWidth = infos.net_width; 
+        const netHeight = gameState.canvas.height - 2 * 20;
+        drawRoundedRect(ctx, netX, netY, netWidth, netHeight, infos.net_color, 2);
+        // Draw the circle in the middle of the table
+        const circleX = gameState.canvas.width / 2; 
+        const circleY = gameState.canvas.height / 2; 
+        const circleRadius = 70; 
+        ctx.beginPath();
+        ctx.arc(circleX, circleY, circleRadius, 0, Math.PI * 2); 
+        ctx.strokeStyle = infos.net_color; 
+        ctx.lineWidth = infos.net_width; 
+        ctx.stroke();
     };
+
     const drawText = (ctx, text, x, y, color, size) => {
         ctx.fillStyle = color;
         ctx.font = `bold ${size}px Arial, sans-serif`;
@@ -161,8 +191,9 @@ const SoloPage = () => {
         drawText(ctx, gameState.scores.user2, canvas.width * (3 / 4), canvas.height / 8, '#bc79dc', 48);
         drawArc(ctx, gameState.ball.x, gameState.ball.y,gameState.ball.radius,infos.ball_color);
         // Draw paddles
-        drawRoundedRect(ctx, 5, gameState.paddles.user1.y, 10, gameState.paddles.user1.height, infos.paddles_color, 5);
-        drawRoundedRect(ctx, canvas.width - 15, gameState.paddles.user2.y, 10, gameState.paddles.user2.height, infos.paddles_color, 5);
+    
+        drawRoundedRect(ctx, 5, gameState.paddles.user1.y, 10, gameState.paddles.user1.height, infos.paddles_color, 5, "left", "#cca6d3");
+        drawRoundedRect(ctx, canvas.width - 15, gameState.paddles.user2.y, 10, gameState.paddles.user2.height, infos.paddles_color, 5, "right", "#cca6d3");
         //pause 2 seconds
         if (gameState.scores.user1 == score_max){
             drawText(ctx, "Winner Is User 1", canvas.width / 4, canvas.height / 2, white, 48);
@@ -318,24 +349,26 @@ const SoloPage = () => {
                     {winner && (winner === username ? <WinComp obj={user} text={"YOU WIN"}/> : <LoseComp obj={user} text={"YOU LOSE"}/>)}
                 </div>
                 <div className="pong-game-container">
-                    <div className="game-container">
-                        <div className="users-info">
-                            <div className="user-info">
-                                {imagePath1 && <img src={`https://${window.location.hostname}${im_us1}`} className="user-avatar" alt="user 1"  style={{ width: "100px", height: "100px" }} />}
-                                <div className="user-details">
-                                    <p className="user-name">{gameState.paddles.user1.name}</p>
-                                    <p className="user-score">Score: {gameState.scores.user1}</p>
-                                </div>
-                            </div>
-                            <p id="vs">VS</p>
-                            <div className="user-info">
-                                <div className="user-details">
-                                    <p className="user-name">{gameState.paddles.user2.name}</p>
-                                    <p className="user-score">Score: {gameState.scores.user2}</p>
-                                </div>
-                                {imagePath2 && <img src={`https://${window.location.hostname}${im_us2}`} className="user-avatar" alt="user 1"  style={{ width: "100px", height: "100px" }} />}
+                    <div className="users-info">
+                        <div className="user-info">
+                            {imagePath1 && <img src={`https://${window.location.hostname}${im_us1}`} className="user-avatar" alt="user 1"  style={{ width: "100px", height: "100px" }} />}
+                            <div className="user-details">
+                                <p className="user-name">{gameState.paddles.user1.name}</p>
+                                {/* <p className="user-score">Score: {gameState.scores.user1}</p> */}
                             </div>
                         </div>
+                        <p id='vs'>
+                            <img src="src/assets/VS.svg" alt="vs" style={{ width: "100px", height: "100px" }}/>
+                        </p>
+                        <div className="user-info">
+                            <div className="user-details">
+                                <p className="user-name">{gameState.paddles.user2.name}</p>
+                                {/* <p className="user-score">Score: {gameState.scores.user2}</p> */}
+                            </div>
+                            {imagePath2 && <img src={`https://${window.location.hostname}${im_us2}`} className="user-avatar" alt="user 1"  style={{ width: "100px", height: "100px" }} />}
+                        </div>
+                    </div>
+                    <div className="game-container">
                         <canvas ref={canvasRef} width="800" height="500" id="pong"></canvas>
                     </div>
                 </div>

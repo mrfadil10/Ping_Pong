@@ -320,22 +320,24 @@ const GameComponent = ({ x, player1, player2, round, color, onGameEnd }) => {
         <div className="tround_all">
             <div className="tround"><h2>Round {x}: {player1} vs {player2}</h2></div>
             <div className="pong-game-container">
-                <div className="game-container">
-                    <div className="users-info">
-                        <div className="user-info">
-                            <img src={user1Image} alt="user 1" className="user-avatar" />
-                            <div className="user-details">
-                                <p className="user-name" style={{color:"#fff"}}>{player1}</p>
-                            </div>
-                        </div>
-                        <p id="vs">VS</p>
-                        <div className="user-info">
-                            <div className="user-details">
-                                <p className="user-name" style={{color:"#fff"}}>{player2}</p>
-                            </div>
-                            <img src={user1Image} alt="user 2" className="user-avatar" />
+                <div className="users-info">
+                    <div className="user-info">
+                        <img src="/media/profile_images/avatar2_tICSu6O.png" alt="user 1" className="user-avatar" style={{ width: "100px", height: "100px" }}/>
+                        <div className="user-details">
+                            <p className="user-name">{player1}</p>
                         </div>
                     </div>
+                    <p id='vs'>
+                        <img src="src/assets/VS.svg" alt="vs" style={{ width: "100px", height: "100px" }}/>
+                    </p>
+                    <div className="user-info">
+                        <div className="user-details">
+                            <p className="user-name">{player2}</p>
+                        </div>
+                        <img src="/media/profile_images/avatar2_tICSu6O.png" alt="user 2" className="user-avatar" style={{ width: "100px", height: "100px" }}/>
+                    </div>
+                </div>
+                <div className="game-container">
                     <canvas ref={canvasRef} width="800" height="500" id="pong"></canvas>
                 </div>
             </div>

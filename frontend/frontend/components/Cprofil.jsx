@@ -12,36 +12,52 @@ import { useData } from '../DatasContext';
 function Cprofil({ profile }) {
     const {Notifs} = useData();
     const [allfriends, setAllfriends] = useState([]);
-
-    useEffect(() => {
-        api
-            .get(`https://${window.location.hostname}/api/friends/`)
-            .then((res) => {
-                setAllfriends(res.data);
-            })
-            .catch((err) => {
-                console.error(err);
-                toast.error("Error fetching friends list");
-            });
-    }, []);
-
-
-    
-    if (!profile) {
-        return <div>Loading...</div>;
-    }
-
+    const [reqfriends, setReqfriends] = useState([]);
+    const [blocklist, setblocklist] = useState([]);
     const [openfriends, setOpenFriends] = useState(true);
     const [openrequests, setOpenReq] = useState(false);
     const [openblock, setOpenBlock] = useState(false);
 
-    const blocked_friends = [];
-    profile.blocked_friends?.map((block_id) => {
-        allfriends.map((blockedfr) => {
-            if(blockedfr.id === block_id)
-                blocked_friends.push(blockedfr.username)
-        });
-    });
+    if (!profile)
+        return <div>Loading...</div>;
+    useEffect(() => {
+        if(openfriends == true)
+        {
+            api
+                .get(`https://${window.location.hostname}/api/friends/`)
+                .then((res) => {
+                    setAllfriends(res.data);
+                })
+                .catch((err) => {
+                    toast.error("Error fetching friends list");
+                });
+        }
+    }, [openfriends]);
+
+    const loadNotifications = async () => {
+        try {
+          const res = await api.get( `https://${window.location.hostname}/api/loadnotifications/`);//loadnotifications/
+          setReqfriends(res.data);
+        } catch (err) { toast.error(err);}
+    };
+
+    useEffect(() => {
+        if(openrequests == true)
+            loadNotifications();
+    }, [openrequests]);
+
+    useEffect(() => {
+        if(openblock == true)
+        {
+            api
+                .get(`https://${window.location.hostname}/api/block_list/`)
+                .then((res) => {
+                    setblocklist(res.data.blocked_users);
+                })
+                .catch((err) => {console.error(err);});
+        }
+    }, [openblock]);
+
     return (
         <div className="profil_alls">
             <div className="profil">
@@ -80,14 +96,14 @@ function Cprofil({ profile }) {
                 ))}
             </div> )}
             {openrequests && (<div className="friendlist" >
-                {Notifs.map((req, index) => (
+                {reqfriends.map((req, index) => (
                     <div key={index}>
                         <div><FriendReq  friendusername={req.username}/></div>
                     </div>
                 ))}
             </div> )}
             {openblock && (<div className="friendlist" >
-                {blocked_friends.map((blockedfr, index) => (
+                {blocklist.map((blockedfr, index) => (
                     <div key={index}>
                         <div><FriendBlock  friendusername={blockedfr}/></div>
                     </div>

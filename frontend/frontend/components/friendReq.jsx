@@ -23,7 +23,7 @@ function FriendReq({friendusername}) {
                 setFriendprofile(res.data);
             })
             .catch((err) => {
-                console.error(err);
+                // console.error(err);
                 toast.error("Error fetching friend profile");
             });
     }, [friendusername]);
@@ -47,7 +47,7 @@ function FriendReq({friendusername}) {
         if(friendusername)
             {
                 api
-                    .get(`https://${window.location.hostname}/api/reject_friend/${friendusername}/`)
+                    .post(`https://${window.location.hostname}/api/reject_friend/${friendusername}/`)//api/reject_friend/<str:username>/
                     .then((res) => {
                         toast.success(res.data.success);
                     })
@@ -74,8 +74,8 @@ function FriendReq({friendusername}) {
                 <h1><Link to={`/friend_profile/${friendusername}`} className="fname" style={{ textDecoration: 'none' }}>{friendprofile.username}</Link></h1>
             </div>
             <div className="option">
-                <h1 onClick={handleRejectFriend} className="request">Reject</h1>
                 <div onClick={handleAddFriend}><h1 className="remove">Accept</h1></div>
+                <div onClick={handleRejectFriend}><h1 className="request">Reject</h1></div>
             </div>
         </div>
     );

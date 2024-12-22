@@ -3,9 +3,9 @@ import React from 'react';
 const Match = ({ match, isHighlighted, onParticipantClick, isRightSide }) => {
   return (
     <div className="tournament-match">
-      {match.map((participant) => (
+      {match.map((participant, index) => (
         <div
-          key={participant}
+          key={index}
           className={`tournament-participant ${isHighlighted(participant) ? 'highlighted' : ''}`}
           onClick={() => onParticipantClick(participant)}
         >

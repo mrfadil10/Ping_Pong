@@ -49,7 +49,7 @@ function Settings() {
                 setProfileImage(null);
             })
             .catch((err) => {
-                console.error(err);
+                // console.error(err);
                 toast.error("Error updating profile");
             });
     };
@@ -86,7 +86,7 @@ function Settings() {
                 });
             })
             .catch((err) => {
-                console.error(err);
+                // console.error(err);
                 toast.error("Error fetching user info");
             });
     };
@@ -121,7 +121,7 @@ function Settings() {
             })
             .catch((err) => {
                 toast.error('There was an error deleting your account.');
-                console.error(err);
+                // console.error(err);
             });
         }
     };
@@ -151,6 +151,11 @@ function Settings() {
         }
     };
 
+    const checkUSername = (username) => {
+        const newUsername = username.replace(/[^a-zA-Z0-9]/g, "");
+        setUsername(newUsername);
+    };
+
     return (
         <div className="settings_all">
             <div className="scontent">
@@ -174,7 +179,7 @@ function Settings() {
                         <input
                             type="text"
                             value={username}
-                            onChange={(e) => setUsername(e.target.value)}
+                            onChange={(e) => checkUSername(e.target.value)}
                             placeholder="New Username"
                             className="input"
                             onKeyDown={handleKeyDown}

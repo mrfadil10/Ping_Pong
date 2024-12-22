@@ -84,7 +84,17 @@ const SoloPage = () => {
             ctx.fillStyle = color;
             ctx.fillRect(x, y, w, h);
         };
-        const drawRoundedRect = (x, y, width, height, color, radius) => {
+        const drawRoundedRect = (x, y, width, height, color, radius, left_right, shadowColor) => {
+            ctx.save();
+            if (shadowColor) {
+                ctx.shadowColor = shadowColor; // Set shadow color
+                ctx.shadowBlur = 10; // Adjust blur for the shadow
+                if (left_right == "right")
+                    ctx.shadowOffsetX = -5; // Horizontal offset of shadow
+                else
+                    ctx.shadowOffsetX = 5; // Horizontal offset of shadow
+                ctx.shadowOffsetY = 5; // Vertical offset of shadow
+            }
             ctx.beginPath();
             ctx.moveTo(x + radius, y);
             ctx.arcTo(x + width, y, x + width, y + height, radius);
@@ -94,14 +104,29 @@ const SoloPage = () => {
             ctx.closePath();
             ctx.fillStyle = color;
             ctx.fill();
+            ctx.restore(); // Restore the context to remove shadow for subsequent elements
         };
         const drawNet = () => {
-            for (let i = 15; i <= canvas.height - 15; i += 15) {
-                if (table_color == 'white')
-                    net.color = 'black';
-                drawRoundedRect(canvas.width / 2, net.y + i, net.width, net.height, net.color, 2.01);
+            if (table_color === 'white') {
+                net.color = 'black';
             }
+            // Draw the net
+            const netX = canvas.width / 2 - net.width / 2;
+            const netY = 20; 
+            const netWidth = net.width; 
+            const netHeight = canvas.height - 2 * 20;
+            drawRoundedRect(netX, netY, netWidth, netHeight, net.color, 2);
+            // Draw the circle in the middle of the table
+            const circleX = canvas.width / 2; 
+            const circleY = canvas.height / 2; 
+            const circleRadius = 70; 
+            ctx.beginPath();
+            ctx.arc(circleX, circleY, circleRadius, 0, Math.PI * 2); 
+            ctx.strokeStyle = net.color; 
+            ctx.lineWidth = net.width; 
+            ctx.stroke();
         };
+        
         const drawText = (text, x, y, color, size) => {
             ctx.fillStyle = color;
             ctx.font = `bold ${size}px Arial, sans-serif`;
@@ -139,8 +164,8 @@ const SoloPage = () => {
             drawText(user2Ref.current.score, canvas.width * (3 / 4), canvas.height / 8, '#bc79dc', 48);
             drawShadow();
             drawArc(ballRef.current.x, ballRef.current.y, ballRef.current.radius, ballRef.current.color);
-            drawRoundedRect(user1Ref.current.x, user1Ref.current.y, user1Ref.current.width, user1Ref.current.height, user1Ref.current.color, 5);
-            drawRoundedRect(user2Ref.current.x, user2Ref.current.y, user2Ref.current.width, user2Ref.current.height, user2Ref.current.color, 5);
+            drawRoundedRect(user1Ref.current.x, user1Ref.current.y, user1Ref.current.width, user1Ref.current.height, user1Ref.current.color, 5, "left", "#cca6d3");
+            drawRoundedRect(user2Ref.current.x, user2Ref.current.y, user2Ref.current.width, user2Ref.current.height, user2Ref.current.color, 5, "right", "#cca6d3");
         };
         // End Drawing Game
 
@@ -329,22 +354,24 @@ const SoloPage = () => {
                 {gameOver && <WinComp obj={null} text={winner}/>}
             </div>
             <div className="pong-game-container">
-                <div className="game-container">
-                    <div className="users-info">
-                        <div className="user-info">
-                            <img src={user1Image} alt="user 1" className="user-avatar" />
-                            <div className="user-details">
-                                <p className="user-name">Player 1</p>
-                            </div>
-                        </div>
-                        <p id="vs">VS</p>
-                        <div className="user-info">
-                            <div className="user-details">
-                                <p className="user-name">Player 2</p>
-                            </div>
-                            <img src={user1Image} alt="user 2" className="user-avatar" />
+                <div className="users-info">
+                    <div className="user-info">
+                        <img src="/media/profile_images/avatar2_tICSu6O.png" alt="user 1" className="user-avatar" style={{ width: "100px", height: "100px" }}/>
+                        <div className="user-details">
+                            <p className="user-name">Player 1</p>
                         </div>
                     </div>
+                    <p id='vs'>
+                        <img src="src/assets/VS.svg" alt="vs" style={{ width: "100px", height: "100px" }}/>
+                    </p>
+                    <div className="user-info">
+                        <div className="user-details">
+                            <p className="user-name">Player 2</p>
+                        </div>
+                        <img src="/media/profile_images/avatar2_tICSu6O.png" alt="user 2" className="user-avatar" style={{ width: "100px", height: "100px" }}/>
+                    </div>
+                </div>
+                <div className="game-container">
                     <canvas ref={canvasRef} width="800" height="500" id="pong"></canvas>
                 </div>
             </div>

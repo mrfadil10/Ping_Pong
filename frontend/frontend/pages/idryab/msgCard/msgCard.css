@@ -1,6 +1,7 @@
 .user-card {
   background-color: #F6F6F6;
   display: flex;
+  align-items: center;
   padding: 10px 20px 10px 20px;
   width: 270px;
   height: 59px;
@@ -29,7 +30,7 @@
   top: 7px;
 }
 .user-card .user-name{
-  font-size: 15px;
+  font-size: 17px;
 }
 
 .user-card .status-indicator{

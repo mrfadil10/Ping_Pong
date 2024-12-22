@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Navigate, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
-import { ACCESS_TOKEN } from "../constants";
+import { ACCESS_TOKEN, REFRESH_TOKEN} from "../constants";
 
 function ProtectedRoute({ children }) {
   const [isDeleted, setIsDeleted] = useState(null); // État pour savoir si l'utilisateur est supprimé
@@ -36,7 +36,7 @@ function ProtectedRoute({ children }) {
             }
           }
         } catch (error) {
-          console.error("Error fetching user status:", error);
+          // console.error("Error fetching user status:", error);
           setIsDeleted(false); // En cas d'erreur, on suppose que l'utilisateur n'est pas supprimé
         }
       } else {

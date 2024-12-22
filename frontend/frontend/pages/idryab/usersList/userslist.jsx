@@ -28,9 +28,7 @@ const Users = () => {
         userObj?.blocked_friends?.map((block_id) => {
           response.data?.map((user) =>{
             if(user.id === block_id)
-              {
                 user.is_blocked = true;
-              }
           });
         });
         setUsers(response.data);
@@ -54,22 +52,24 @@ const Users = () => {
         response.data.results.reverse();
         setMessages(prevMessages => [...response.data.results, ...prevMessages]);
     } 
-    catch (error) {console.error('Error fetching messages:', error);}
-    // catch (error) {toast.error('No more Messages Available');}
+    catch  {
+      // console.log('No more messages available');
+      console.log("");
+    }
     setLoading(false);
   };
 
 //====================================== End Test Code =================================================================
 //select user(The user I wanna talk to it) and Load messages in between
-  const selectUser = async (friend) =>{
+  const selectUser = (friend) =>{
     if (selecteduser.username != friend.username)
     {
         setPage(1);
         setMessages([]);//Reset the messages array to be empty
-        userObj.blocked_friends?.map((block_id) => {
-            if(friend.id === block_id)
-              friend.is_blocked = true;
-        });
+        // userObj.blocked_friends?.map((block_id) => {
+        //     if(friend.id === block_id)
+        //       friend.is_blocked = true;
+        // });
         setSelecteduser(friend);//set the new selected-user
     }
   }
@@ -88,7 +88,6 @@ const Users = () => {
   // }
   useEffect(() => {
     if (datas.length > 0) {
-      console.log("<====Real-time Messages====>: ", datas);
       setMessages((prevMessages) => [...prevMessages, ...datas]);//concatenate the loaded messages && real-time messages
       // UnreadedMessages(users, datas[0]?.senderName);//call the UnreadedMessages
       setDatas([]);//clear real-time data (messages)
@@ -103,9 +102,7 @@ let menuRef = useRef(false);
 useEffect(() =>{
   let handler = (e)=>{
     if(!menuRef.current.contains(e.target))
-    {
       setOpen(false);
-    }
 };
 
 document.addEventListener("mousedown", handler);
@@ -118,7 +115,6 @@ useEffect(() =>{
   if(selecteduser)
   {
     fetchMessages(selecteduser.username);
-    console.log("Loading messages from DB: ", selecteduser.username + "Page: " + page);
   }
 }, [page, selecteduser]);
   return (

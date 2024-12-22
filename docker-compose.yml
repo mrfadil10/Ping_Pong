@@ -56,7 +56,6 @@ services:
     build: backend/dg_registration
     image: dg_registration-image
     container_name: dg_registration-container
-    tty: true  # Added for debugging
     ports:
       - "8000:8000"
     volumes:

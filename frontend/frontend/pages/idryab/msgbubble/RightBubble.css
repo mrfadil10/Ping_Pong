@@ -15,16 +15,19 @@
 .right-body{
     display: flex;
     align-items: center;
-    max-width: 50%;
+    max-width: 300px;
     background-color: #dacbf3;
     padding: 10px 15px;
     border-radius: 10px 0px 10px 10px;
     color: #000;
     font-size: 16px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    /* font-family: 'Roboto', sans-serif; */
-
     flex-wrap: wrap;
+}
+
+.right-body span{
+    font-size: 10px;
+    color: #0000008f;
 }
 
 .right-body p{

@@ -24,6 +24,19 @@ const RightSec = ({messages, selecteduser, setPage, page}) => {
     setMsg(event.target.value);
   };
 
+  const [blocklist, setblocklist] = useState([]);
+  useEffect(() => {
+        api
+          .get(`https://${window.location.hostname}/api/block_list/`)
+          .then((res) => {
+              setblocklist(res.data.blocked_users);
+          })
+          .catch((err) => {console.error(err);});
+  }, []);
+  blocklist.map((block) => {
+    if(block=== selecteduser.username)
+      selecteduser.is_blocked  = true;
+  });
   //Sending message when the user click ENTER
   const getkeyDown = (event) => {
     if(event.key === "Enter" && selecteduser && msg != '')

@@ -2,7 +2,7 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
 import json
 
-from .models import ChatMessage, PrivateMessageModel, Conversation, Notifications
+from .models import ChatMessage, PrivateMessageModel, Conversation, Notifications, BlockedList
 from django.contrib.auth import get_user_model
 
 from asgiref.sync import sync_to_async
@@ -23,11 +23,9 @@ class PongConsumer(AsyncWebsocketConsumer):
         self.all_names = self.scope['url_route']['kwargs']['room_name']
         if ("_" in self.all_names):
             self.username, self.sender, self.receiver = self.all_names.split('_')
-            print("all_names: ", self.username, self.sender, self.receiver)
         else:
             self.username = self.all_names
             self.sender = self.receiver = "null"
-            print("username: ", self.username)
         # return
         self.user_obj = await sync_to_async(UserProfile.objects.select_related('user').get)(user__username=self.username)
         self.profile_image = self.user_obj.profile_image.name
@@ -85,7 +83,7 @@ class PongConsumer(AsyncWebsocketConsumer):
             room['players'][self.user_role] = self
             room['players_name'][self.user_role] = self.username
             room['players_photo'][self.user_role] = self.profile_image
-            print(f"WebSocket connection accepted for {self.channel_name} as {self.user_role} in room {self.room_name}")
+            # print(f"WebSocket connection accepted for {self.channel_name} as {self.user_role} in room {self.room_name}")
             if len(room['players']) == 2:
                 room['game_state']['status'] = 'running'
                 room['game_state'] = self.create_new_game_state()
@@ -94,7 +92,7 @@ class PongConsumer(AsyncWebsocketConsumer):
                 room['game_state']['paddles']['user1']['photo'] = room['players_photo']['user1']
                 room['game_state']['paddles']['user2']['photo'] = room['players_photo']['user2']
                 room['game_loop_task'] = asyncio.create_task(self.game_loop(room))
-                print(f"Game loop task created for room {self.room_name}")
+                # print(f"Game loop task created for room {self.room_name}")
             else:
                 room['game_state']['status'] = 'waiting'
         else:
@@ -130,14 +128,11 @@ class PongConsumer(AsyncWebsocketConsumer):
         }
 
     async def disconnect(self, close_code):
-        print(f"WebSocket disconnected. Close code: {close_code}")
+        # print(f"WebSocket disconnected. Close code: {close_code}")
         if hasattr(self, 'room_name'):
             room = self.rooms[self.room_name]
             if self.user_role in room['players']:
-                print(f"1 ---->> players: {room['players'].values()}")
-                print(f"2 ---->> Player {room['players'][self.user_role]} left the room {self.room_name}")
                 del room['players'][self.user_role]
-                print(f"3 ---->> players: {room['players'].values()}")
             # room['game_state'] = self.create_new_game_state()
             room['game_state']['scores'][self.user_role] = 0
             if self.user_role == 'user1':
@@ -255,12 +250,10 @@ class PongConsumer(AsyncWebsocketConsumer):
             consecutive_wins += 1
             consecutive_los = 0
             score += user_score
-            percent += 22
+            percent += 35
             if percent >= 100:
                 percent = 7
                 level = player.level + 1
-            if ((level % 2 == 0) and (percent == 7) and (achievements < 9)):
-                achievements += 1
         else:
             score -= int((score_other_player + 1) / 2)
             if score < 0:
@@ -272,6 +265,10 @@ class PongConsumer(AsyncWebsocketConsumer):
             loss = player.loss + 1
             consecutive_los += 1
             consecutive_wins = 0
+        if (wins == 1):
+            achievements = 1
+        if ((level % 2 == 0) and (percent == 7) and (achievements < 10)):
+            achievements += 1
         total_game = player.total_game + 1
         score_table.append(score)
         max_consecutive_wins = max(player.max_consecutive_wins, consecutive_wins)
@@ -292,7 +289,7 @@ class PongConsumer(AsyncWebsocketConsumer):
         )
     
     async def game_loop(self, room):
-        print(f"Game loop started for room {self.room_name}")
+        # print(f"Game loop started for room {self.room_name}")
         try:
             self.last_collision_user[self.room_name] = None
             room = self.rooms[self.room_name]
@@ -362,15 +359,14 @@ class PongConsumer(AsyncWebsocketConsumer):
 
 # --------------------------------------->> Game end
 
-#-----------------------------idryab---------------------------------------------
+#================================================================================ idryab ================================================================================
 class chat(AsyncWebsocketConsumer):
     async def connect(self):
         # This could be based on the user or room name
         # self.room_name = 'default_room'  # You might use a dynamic room name
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.room_group_name = f'chat_{self.room_name}'
-        print(self.room_name)
-        print(self.room_group_name)
+
 
         # Join room group
         await self.channel_layer.group_add(
@@ -390,11 +386,6 @@ class chat(AsyncWebsocketConsumer):
             ChatMessage.objects.filter(room=self.room_name).select_related('sender').order_by('-timestamp')[:50]
         )
         for message in reversed(messages):
-            # print("Receiver: ", message.receiver)
-            # print("Sender: ", message.sender)
-            # print("Room: ", message.room)
-            # print("Message", message.content)
-            # print("date: ", message.timestamp.strftime('%Y-%m-%d %H:%M:%S'))
             await self.send(text_data=json.dumps({
                 'message': message.content,
                 'username': message.sender.username,
@@ -414,13 +405,11 @@ class chat(AsyncWebsocketConsumer):
         message = data['message']
         username = data['sender']
         receiver = data['receiver']
-        print(username + ": " + message + " to: " + receiver)
 
         #Get sender object from databse
         try:
             sender = await sync_to_async(UserProfile.objects.get)(username=username)
         except:
-            print("This user does not exist")
             self.disconnect(1003)
         #Save message into the database
         save_message = await sync_to_async(ChatMessage.objects.create)(
@@ -495,12 +484,9 @@ def store_private_messages(sender_obj, receiver_obj, message, timestamp):
             user1=sender_obj, user2=receiver_obj,
             defaults={'last_message_at': timestamp}
         )
-        print("CONVO UPDATED")
-        
         if not created:
             conversation.last_message_at = timestamp
             conversation.save()
-            print("ALREADY EXIST")
 
         conversation_reverse, created_reverse = Conversation.objects.get_or_create(
             user1=receiver_obj, user2=sender_obj,
@@ -510,39 +496,39 @@ def store_private_messages(sender_obj, receiver_obj, message, timestamp):
         if not created_reverse:
             conversation_reverse.last_message_at = timestamp
             conversation_reverse.save()
-        return PrivateMessageModel.objects.create(
-            sender=sender_obj,
-            receiver=receiver_obj,
-            content=message
-        )
+        return PrivateMessageModel.objects.create(sender=sender_obj, receiver=receiver_obj, content=message)
+
+@sync_to_async
 def get_sender_username(msg):
     return msg.sender.user.username
 
-# @sync_to_async
-# def stupid_shit(user_obj1):
-#     if user_obj1.user.is_authenticated:
-#         return True
-#     return False
+@sync_to_async
+def check_blockedList(blocker, blocked_user):
+    blockedlist =  BlockedList.objects.filter(
+        Q(blocker=blocker, blocked=blocked_user) | Q(blocker=blocked_user, blocked=blocker)).first()
+    if blockedlist:
+        return True
+    return False
+    # blockedlist = BlockedList.objects.filter(Q(blocker=blocker) & Q(blocked=blocked_user)).first()
+    # beingblockedlist = BlockedList.objects.filter(Q(blocker=blocked_user) & Q(blocked=blocker)).first()
+    # if blockedlist:
+    #     return blockedlist
+    # if beingblockedlist:
+    #     return beingblockedlist
+    # return None
+
 onine_userslist = []
 class PrivateChat(AsyncWebsocketConsumer):
     async def connect(self):
         self.username = self.scope['url_route']['kwargs']['room_name']
-
-        # user_obj1 = await get_user_obj(username=self.username)
-        # status = await stupid_shit(user_obj1)
-        # if not status:
-        #     await self.close()
-        #     return
         self.room_group_name = f"prv_chat_{self.username}_channel"
-        print("User     : ", self.username)
-        print("His Group: ", self.room_group_name)
-        print("ChannelID: ", self.channel_name)
-        # Join room group
+
+        # Join room group(every user has a group that contain one or multiple channel_namezzz)
         await self.channel_layer.group_add(self.room_group_name, self.channel_name)
-
+        # everyone connected(online), I add them to the active_users group, and everytime someone connected I broadcast the onine_userslist to everyone in this group.
         await self.channel_layer.group_add("active_users", self.channel_name)
+        # update the list of online userzzz
         onine_userslist.append(self.username)
-
         await self.channel_layer.group_send(
             "active_users",
             {
@@ -556,8 +542,8 @@ class PrivateChat(AsyncWebsocketConsumer):
     async def disconnect(self, close_code):
         #Leave the group
         await self.channel_layer.group_discard(self.room_group_name, self.channel_name)
-        onine_userslist.remove(self.username)
         await self.channel_layer.group_discard("active_users", self.channel_name)
+        onine_userslist.remove(self.username)
         await self.channel_layer.group_send(
             "active_users",
             {
@@ -575,55 +561,12 @@ class PrivateChat(AsyncWebsocketConsumer):
         typeofmsg = data['typeofmsg']
         timestamp = get_current_time()
         to_group_name = f"prv_chat_{receiver}_channel"
-        is_blocked = False
-        print("typeofmsg: " + typeofmsg + " message: " + message + " sender: " + sender + " receiver: " + receiver)
 
-
-        #implement a friend_request Model for storing panding requests.
-        #then every req I will store it in this table
-        receiver_obj = await get_user_obj(username=receiver)
         sender_obj = await get_user_obj(username=sender)
-        if typeofmsg == "friend_request":
-            await store_notifications(sender_obj, receiver_obj, timestamp)
-            await self.channel_layer.group_send(
-                to_group_name,
-                {
-                        'type': 'prv_message',
-                        'message': message,
-                        'sender': sender,
-                        'receiver': receiver,
-                        'timestamp': timestamp,
-                        'typeofmsg': typeofmsg,
-                        'is_blocked': is_blocked,
-                }
-            )
-            print("friend request stored in database")
-        if typeofmsg == "invite_to_game":
-            await self.channel_layer.group_send(
-                to_group_name,
-                {
-                        'type': 'prv_message',
-                        'message': message,
-                        'sender': sender,
-                        'receiver': receiver,
-                        'timestamp': timestamp,
-                        'typeofmsg': typeofmsg,
-                        'is_blocked': is_blocked,
-                }
-            )
-        if typeofmsg == "message":
-            # store messages into the database.
-            if receiver_obj:
-                blocked_friends = await get_blocked_friends(receiver_obj)
-                for fr in blocked_friends:
-                    print("blocked: ", fr.id)
-                    if fr.id == sender_obj.id:
-                        is_blocked = True
-            else:
-                print("User does not exist in database")
+        receiver_obj = await get_user_obj(username=receiver)
+        is_blocked = await check_blockedList(sender_obj, receiver_obj)
 
-        if is_blocked == False and typeofmsg == "message":
-            await store_private_messages(sender_obj, receiver_obj, message, timestamp)
+        if typeofmsg == "friend_request" or typeofmsg == "invite_to_game":
             await self.channel_layer.group_send(
                 to_group_name,
                 {
@@ -633,11 +576,11 @@ class PrivateChat(AsyncWebsocketConsumer):
                         'receiver': receiver,
                         'timestamp': timestamp,
                         'typeofmsg': typeofmsg,
-                        'is_blocked': is_blocked,
-                }
-            )
-        # if typeofmsg != "friend_request" and typeofmsg != "invite_to_game":
-        if typeofmsg == "message":
+                })
+            if typeofmsg == "friend_request":
+                await store_notifications(sender_obj, receiver_obj, timestamp)
+
+        elif typeofmsg == "message":
             await self.channel_layer.group_send(
                 self.room_group_name,
                 {
@@ -647,24 +590,34 @@ class PrivateChat(AsyncWebsocketConsumer):
                         'receiver': receiver,
                         'timestamp': timestamp,
                         'typeofmsg': typeofmsg,
-                        'is_blocked': is_blocked,
                 }
             )
+            if is_blocked == False:
+                await store_private_messages(sender_obj, receiver_obj, message, timestamp)
+                await self.channel_layer.group_send(
+                    to_group_name,
+                    {
+                            'type': 'prv_message',
+                            'message': message,
+                            'sender': sender,
+                            'receiver': receiver,
+                            'timestamp': timestamp,
+                            'typeofmsg': typeofmsg,
+                    })
 
     async def prv_message(self, event):
         message = event['message']
-        typeofmsg = event['typeofmsg']
         sender = event['sender']
+        receiver = event['receiver']
+        timestamp = event['timestamp']
         typeofmsg = event['typeofmsg']
-        is_blocked = event['is_blocked']
         
         await self.send(text_data=json.dumps({
             'content': message,
-            'senderName':sender,
-            'receiverName': event['receiver'],
-            'timestamp': event['timestamp'],
+            'senderName': sender,
+            'receiverName': receiver,
+            'timestamp': timestamp,
             'typeofmsg': typeofmsg,
-            'is_blocked': is_blocked,
         }))
 
     async def status_update(self, event):
@@ -675,4 +628,4 @@ class PrivateChat(AsyncWebsocketConsumer):
             'online_users': online_users,
             'typeofmsg': "status_update"
     }))
-#-----------------------------End of idryab---------------------------------------------    
+#================================================================================ End of idryab ================================================================================  

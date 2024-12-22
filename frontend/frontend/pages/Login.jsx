@@ -69,7 +69,15 @@ function Login() {
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
-      handleSubmit(e); // Appel de handleSubmit
+      handleSubmit(e);
+       // Appel de handleSubmit
+    }
+  };
+
+  const handleKeyPress2 = (e) => {
+    if (e.key === 'Enter') {
+      verifyCode(e);
+       // Appel de handleSubmit
     }
   };
 
@@ -192,6 +200,7 @@ function Login() {
                         type="text"
                         value={code}
                         onChange={(e) => setCode(e.target.value)}
+                        onKeyPress={handleKeyPress2}
                         placeholder="Verification Code"
                         />
                       <button onClick={verifyCode}>Verify</button>
