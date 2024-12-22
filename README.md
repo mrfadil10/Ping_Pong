@@ -29,5 +29,5 @@
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/ft_transcendence.git
+   git clone git@github.com:mrfadil10/Ping_Pong.git
 
