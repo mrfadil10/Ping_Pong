@@ -18,8 +18,8 @@
 
 ## Tech Stack
 
-- **Front-End**: [React.js/Vue.js], HTML5, CSS3, Tailwind/Bootstrap
-- **Back-End**: NestJS/Express.js with TypeScript
+- **Front-End**: React.js, HTML5, CSS3, Tailwind
+- **Back-End**: Django, Django Rest Frameworks
 - **Database**: PostgreSQL/MySQL
 - **Authentication**: OAuth2.0, JWT, 2FA
 - **Real-Time Communication**: WebSockets
